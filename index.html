@@ -5,10 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="./css/cardstarter.css">
+  <link rel="stylesheet" href="./css/cardstarter.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <script defer src="./js/app.js"></script>
 </head>
 <body>
+  <div class="card large shadow back-red" id="deck"></div>
+  <div class="card large outline" id="dealer-first-card"></div>
+  <div class="card large outline" id="dealer-second-card"></div>
+  <div class="card large outline" id="player-first-card"></div>
+  <div class="card large outline" id="player-second-card"></div>
   <div class="chips">
     <button id="5"></button>
     <button id="10"></button>
@@ -17,6 +24,7 @@
   </div>
   <p id="player-money"></p>
   <p id="current-bet"></p>
-  <button id="deal-button" style="display:none">Deal Cards</button>
+  <button id="deal-button">Deal Cards</button>
+  <button id="reset-bet-button">Reset Bet</button>
 </body>
 </html>

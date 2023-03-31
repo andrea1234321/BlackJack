@@ -1,14 +1,19 @@
 //const
 const chipVals= [5, 10, 25, 100]
 //variables
-let playerMoney
-let bet, dealBtn
+let playerMoney, bet, dealBtn
+let deck= []
+let playerCards= []
+let dealerCards= []
 //cached elements
 
 const chipsEls= document.querySelectorAll(".chips>button")
-const playerMoneyEls= document.getElementById('player-money')
-const currentBetEls= document.getElementById('current-bet')
+const playerMoneyEl= document.getElementById('player-money')
+const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
+const resetBetBtnEl= document.getElementById('reset-bet-button')
+
+const dealerFirstCard= document.getElementById("dealer-first-card")
 
 //event-listeners
 chipsEls.forEach(function(chip, idx){
@@ -17,27 +22,41 @@ chipsEls.forEach(function(chip, idx){
 })
 
 dealBtnEl.addEventListener('click', dealBtnHandleClick)
+resetBetBtnEl.addEventListener('click', resetBetHandleClick)
+
 //functions
 function init(){
   playerMoney= 1000
-  playerMoneyEls.innerText= `Total Money: $${playerMoney}`
+  playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   bet= 0
-  currentBetEls.innerText= `Current bet: $${bet}`
+  currentBetEl.innerText= `Current bet: $${bet}`
+  dealBtnEl.style.visibility= 'hidden'
+  resetBetBtnEl.style.visibility= 'hidden'
+  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
 }
 init()
 
 function handleClick(evt){
   if (!bet){
-    dealBtnEl.style.display= 'inline-block'
+    dealBtnEl.style.visibility= 'visible'
+    resetBetBtnEl.style.visibility= 'visible'
   } 
   if (playerMoney>=(parseInt(evt.target.id))){
     playerMoney-=(parseInt(evt.target.id))
-    playerMoneyEls.innerText= `$${playerMoney}`
+    playerMoneyEl.innerText= `$${playerMoney}`
     bet+=(parseInt(evt.target.id))
-    currentBetEls.innerText= `Current bet: $${bet}`
+    currentBetEl.innerText= `Current bet: $${bet}`
   }
 }
 
 function dealBtnHandleClick(){
-  console.log('clicked')
+  dealBtnEl.style.visibility= 'hidden'
+  resetBetBtnEl.style.visibility= 'hidden'
+  chipsEls.forEach(function(chip){
+    chip.removeEventListener('click', handleClick)
+  })
+}
+
+function resetBetHandleClick(){
+  init()
 }
