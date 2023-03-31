@@ -14,6 +14,9 @@ const dealBtnEl= document.getElementById('deal-button')
 const resetBetBtnEl= document.getElementById('reset-bet-button')
 
 const dealerFirstCard= document.getElementById("dealer-first-card")
+const dealerSecondCard= document.getElementById("dealer-second-card")
+const playerFirstCard= document.getElementById("player-first-card")
+const playerSecondCard= document.getElementById("player-second-card")
 
 //event-listeners
 chipsEls.forEach(function(chip, idx){
@@ -53,10 +56,25 @@ function dealBtnHandleClick(){
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
   chipsEls.forEach(function(chip){
-    chip.removeEventListener('click', handleClick)
+    // chip.removeEventListener('click', handleClick)
+    chip.disabled='true'
   })
+  dealCards()
 }
 
 function resetBetHandleClick(){
   init()
+}
+
+function dealCards(){
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  playerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  render(randomCard)
+}
+
+function render(randomCard){
+  playerFirstCard.classList.remove('outline')
+  playerFirstCard.classList.add(randomCard)
 }
