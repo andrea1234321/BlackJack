@@ -46,7 +46,7 @@ function handleClick(evt){
   } 
   if (playerMoney>=(parseInt(evt.target.id))){
     playerMoney-=(parseInt(evt.target.id))
-    playerMoneyEl.innerText= `$${playerMoney}`
+    playerMoneyEl.innerText= `Money left: $${playerMoney}`
     bet+=(parseInt(evt.target.id))
     currentBetEl.innerText= `Current bet: $${bet}`
   }
@@ -59,22 +59,66 @@ function dealBtnHandleClick(){
     // chip.removeEventListener('click', handleClick)
     chip.disabled='true'
   })
-  dealCards()
+  dealPlayerFirstCard()
+  dealDealerFirstCard()
+  dealPlayerSecondCard()
+  dealDealerSecondCard()
 }
 
 function resetBetHandleClick(){
   init()
 }
 
-function dealCards(){
+function dealPlayerFirstCard(){
   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
   playerCards.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
-  render(randomCard)
+  renderPlayerFirstCard(randomCard)
 }
 
-function render(randomCard){
+function renderPlayerFirstCard(randomCard){
   playerFirstCard.classList.remove('outline')
   playerFirstCard.classList.add(randomCard)
+}
+
+function dealDealerFirstCard(){
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  dealerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  renderDealerFirstCard(randomCard)
+}
+
+function renderDealerFirstCard(randomCard){
+  dealerFirstCard.classList.remove('outline')
+  dealerFirstCard.classList.add(randomCard)
+  // dealerFirstCard.classList.add('back-red')
+}
+
+function dealPlayerSecondCard(){
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  playerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  renderPlayerSecondCard(randomCard)
+}
+
+function renderPlayerSecondCard(randomCard){
+  playerSecondCard.classList.remove('outline')
+  playerSecondCard.classList.add(randomCard)
+}
+
+function dealDealerSecondCard(){
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  dealerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  renderDealerSecondCard(randomCard)
+}
+
+function renderDealerSecondCard(randomCard){
+  dealerSecondCard.classList.remove('outline')
+  dealerSecondCard.classList.add(randomCard)
+  dealerFirstCard.classList.add('back-red')
 }
