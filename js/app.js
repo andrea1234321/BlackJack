@@ -1,7 +1,7 @@
 //const
 const chipVals= [5, 10, 25, 100]
 //variables
-let playerMoney, bet, dealBtn
+let playerMoney, bet, dealBtn, dealerCardCount, playerCardCount
 let deck= []
 let playerCards= []
 let dealerCards= []
@@ -38,6 +38,8 @@ function init(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   bet= 0
   currentBetEl.innerText= `Current bet: $${bet}`
+  playerCardCount= 0
+  dealerCardCount= 0
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
   hitBtnEl.style.visibility= 'hidden'
@@ -75,6 +77,7 @@ function dealBtnHandleClick(){
   hitBtnEl.style.visibility= 'visible'
   // dealCards()
   playerTotal()
+  dealerTotal()
 }
 
 function resetBetHandleClick(){
@@ -163,26 +166,71 @@ function stayBtn(){
   dealerFirstCard.classList.add(dealerCards[0])
   stayBtnEl.disabled='true'
   hitBtnEl.disabled='true'
-  playerTotal()
+  dealerTotal()
 }
 
 function playerTotal(){
-  let total= 0
   cardsArr=[]
   playerCards.forEach(function(card){
     let cardValue= card.slice(1,3)
     cardsArr.push(cardValue)
     if (cardValue=== 'K' || cardValue=== 'Q' || cardValue=== 'J'){
-      total+=10
+      playerCardCount+=10
     }
     else if (parseInt(cardValue)){
-      total+= parseInt(cardValue)
+      playerCardCount+= parseInt(cardValue)
     }else if (cardValue=== 'A'){
-      total+=11
+      playerCardCount+=11
     }
   })
-  if (total>21 && cardsArr.includes("A")){
-    total-=10
+  if (playerCardCount>21 && cardsArr.includes("A")){
+    playerCardCount-=10
   }
-  console.log(total)
+  console.log(`player total: ${playerCardCount}`)
+  checkForBlackJack(playerCardCount)
+}
+
+function checkForBlackJack(number){
+  if (number===21 && cardsArr.length===2){
+    stayBtnEl.disabled='true'
+    hitBtnEl.disabled='true'
+    dealerFirstCard.classList.remove('back-red')
+    dealerFirstCard.classList.add(dealerCards[0])
+    if (!dealerCards[1].includes('A')){
+      //and need to check if total for dealer!=21
+      playerMoney+= (bet*(3/2))
+      playerMoneyEl.innerText= `Money left: $${playerMoney}`
+      bet=0
+      currentBetEl.innerText= `Current bet: $${bet}`
+    }else if (dealerCards[1].includes('A')){
+      //ask for insurance
+    }else{
+      dealerTotal()
+      if (dealerCardCount===21){
+        //player pushes
+      }else{
+        //pay player
+      }
+    }
   }
+}
+
+function dealerTotal(){
+  cardsArr=[]
+  dealerCards.forEach(function(card){
+    let cardValue= card.slice(1,3)
+    cardsArr.push(cardValue)
+    if (cardValue=== 'K' || cardValue=== 'Q' || cardValue=== 'J'){
+      dealerCardCount+=10
+    }
+    else if (parseInt(cardValue)){
+      dealerCardCount+= parseInt(cardValue)
+    }else if (cardValue=== 'A'){
+      dealerCardCount+=11
+    }
+  })
+  if (dealerCardCount>21 && cardsArr.includes("A")){
+    dealerCardCount-=10
+  }
+  console.log(`dealer total: ${dealerCardCount}`)
+}
