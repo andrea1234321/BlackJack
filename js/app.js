@@ -5,6 +5,7 @@ let playerMoney, bet, dealBtn
 let deck= []
 let playerCards= []
 let dealerCards= []
+let discardPile= []
 //cached elements
 
 const chipsEls= document.querySelectorAll(".chips>button")
@@ -12,11 +13,14 @@ const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
 const resetBetBtnEl= document.getElementById('reset-bet-button')
-
 const dealerFirstCard= document.getElementById("dealer-first-card")
 const dealerSecondCard= document.getElementById("dealer-second-card")
 const playerFirstCard= document.getElementById("player-first-card")
 const playerSecondCard= document.getElementById("player-second-card")
+const hitBtnEl= document.getElementById('hit-button')
+const stayBtnEl= document.getElementById('stay-button')
+
+
 
 //event-listeners
 chipsEls.forEach(function(chip, idx){
@@ -26,7 +30,8 @@ chipsEls.forEach(function(chip, idx){
 
 dealBtnEl.addEventListener('click', dealBtnHandleClick)
 resetBetBtnEl.addEventListener('click', resetBetHandleClick)
-
+hitBtnEl.addEventListener('click', hitBtn)
+stayBtnEl.addEventListener('click', stayBtn)
 //functions
 function init(){
   playerMoney= 1000
@@ -35,6 +40,8 @@ function init(){
   currentBetEl.innerText= `Current bet: $${bet}`
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
+  hitBtnEl.style.visibility= 'hidden'
+  stayBtnEl.style.visibility= 'hidden'
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
 }
 init()
@@ -63,6 +70,9 @@ function dealBtnHandleClick(){
   dealDealerFirstCard()
   dealPlayerSecondCard()
   dealDealerSecondCard()
+  stayBtnEl.style.visibility= 'visible'
+  hitBtnEl.style.visibility= 'visible'
+  // dealCards()
 }
 
 function resetBetHandleClick(){
@@ -93,7 +103,7 @@ function dealDealerFirstCard(){
 function renderDealerFirstCard(randomCard){
   dealerFirstCard.classList.remove('outline')
   dealerFirstCard.classList.add(randomCard)
-  // dealerFirstCard.classList.add('back-red')
+  dealerFirstCard.classList.add('back-red')
 }
 
 function dealPlayerSecondCard(){
@@ -120,5 +130,24 @@ function dealDealerSecondCard(){
 function renderDealerSecondCard(randomCard){
   dealerSecondCard.classList.remove('outline')
   dealerSecondCard.classList.add(randomCard)
-  dealerFirstCard.classList.add('back-red')
+}
+
+// function dealCards(){
+//   for (i=0; i<5; i++){
+//     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+//     playerCards.push(randomCard)
+//     let randomCardIdx= deck.indexOf(randomCard)
+//     deck.splice(randomCardIdx, 1)
+//     renderCard(randomCard)
+//   }
+// }
+
+function hitBtn(){
+  //add a card to player when pressed
+}
+function stayBtn(){
+  dealerFirstCard.classList.remove('back-red')
+  dealerFirstCard.classList.add(dealerCards[0])
+  stayBtnEl.disabled='true'
+  hitBtnEl.disabled='true'
 }
