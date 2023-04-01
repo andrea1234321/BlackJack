@@ -38,8 +38,6 @@ function init(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   bet= 0
   currentBetEl.innerText= `Current bet: $${bet}`
-  playerCardCount= 0
-  dealerCardCount= 0
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
   hitBtnEl.style.visibility= 'hidden'
@@ -170,6 +168,7 @@ function stayBtn(){
 }
 
 function playerTotal(){
+  playerCardCount=0
   cardsArr=[]
   playerCards.forEach(function(card){
     let cardValue= card.slice(1,3)
@@ -216,6 +215,7 @@ function checkForBlackJack(number){
 }
 
 function dealerTotal(){
+  dealerCardCount=0
   cardsArr=[]
   dealerCards.forEach(function(card){
     let cardValue= card.slice(1,3)
