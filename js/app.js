@@ -70,9 +70,11 @@ function dealBtnHandleClick(){
   dealDealerFirstCard()
   dealPlayerSecondCard()
   dealDealerSecondCard()
+  //function to evaluate if first two players cards are 21
   stayBtnEl.style.visibility= 'visible'
   hitBtnEl.style.visibility= 'visible'
   // dealCards()
+  playerTotal()
 }
 
 function resetBetHandleClick(){
@@ -138,7 +140,9 @@ function renderDealerSecondCard(randomCard){
 //     playerCards.push(randomCard)
 //     let randomCardIdx= deck.indexOf(randomCard)
 //     deck.splice(randomCardIdx, 1)
-//     renderCard(randomCard)
+//     if (i===0){
+//       rendercDealerFirstCard(randomCard)
+//     }
 //   }
 // }
 
@@ -151,6 +155,7 @@ function hitBtn(){
   const playerHitCard= document.createElement('div')
   playerHitCard.setAttribute('class', `card large ${randomCard}`)
   document.body.appendChild(playerHitCard)
+  playerTotal()
   // playerHitCard.after(playerSecondCard)
 }
 function stayBtn(){
@@ -158,4 +163,26 @@ function stayBtn(){
   dealerFirstCard.classList.add(dealerCards[0])
   stayBtnEl.disabled='true'
   hitBtnEl.disabled='true'
+  playerTotal()
 }
+
+function playerTotal(){
+  let total= 0
+  cardsArr=[]
+  playerCards.forEach(function(card){
+    let cardValue= card.slice(1,3)
+    cardsArr.push(cardValue)
+    if (cardValue=== 'K' || cardValue=== 'Q' || cardValue=== 'J'){
+      total+=10
+    }
+    else if (parseInt(cardValue)){
+      total+= parseInt(cardValue)
+    }else if (cardValue=== 'A'){
+      total+=11
+    }
+  })
+  if (total>21 && cardsArr.includes("A")){
+    total-=10
+  }
+  console.log(total)
+  }
