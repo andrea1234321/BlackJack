@@ -144,6 +144,14 @@ function renderDealerSecondCard(randomCard){
 
 function hitBtn(){
   //add a card to player when pressed
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  playerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  const playerHitCard= document.createElement('div')
+  playerHitCard.setAttribute('class', `card large ${randomCard}`)
+  document.body.appendChild(playerHitCard)
+  // playerHitCard.after(playerSecondCard)
 }
 function stayBtn(){
   dealerFirstCard.classList.remove('back-red')
