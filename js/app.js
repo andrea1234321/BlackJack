@@ -13,11 +13,9 @@ const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
 const resetBetBtnEl= document.getElementById('reset-bet-button')
-// const dealerFirstCard= document.getElementById("dealer-first-card")
-// const dealerSecondCard= document.getElementById("dealer-second-card")
-// const playerFirstCard= document.getElementById("player-first-card")
-// const playerSecondCard= document.getElementById("player-second-card")
 const initialCardsEl= document.querySelectorAll('#initial-cards')
+const dealerCardsEl= document.querySelector('.dealer-card-container')
+const playerCardsEl= document.querySelector('.player-card-container')
 const hitBtnEl= document.getElementById('hit-button')
 const stayBtnEl= document.getElementById('stay-button')
 const discardBtnEl= document.getElementById('discard-button')
@@ -68,11 +66,15 @@ function updateBtns(){
 }
 
 function updatePlayingField(){
-  initialCardsEl.forEach(function(initialCard){
-    let className= initialCard.getAttribute('class')
-    initialCard.classList.replace(className.slice(11), 'outline')
-  })
-  //remove any added divs
+  // initialCardsEl.forEach(function(initialCard){
+  //   let className= initialCard.getAttribute('class')
+  //   initialCard.classList.replace(className.slice(11), 'outline')
+  // })
+  // if (playerCards===[] && dealerCards===[]){
+  //   //playercards should be empty
+  // }else {
+  //   // cards should show on board
+  // } 
   playerCards=[]
   dealerCards=[]
 }
@@ -122,6 +124,7 @@ function dealCards(){
 }
 
 function renderInitialCards(randomCard){
+  console.log(i)
  if (i===0){
   initialCardsEl[2].classList.remove('outline')
   initialCardsEl[2].classList.add(randomCard)
@@ -151,7 +154,7 @@ function hitBtn(){
   deck.splice(randomCardIdx, 1)
   const playerHitCard= document.createElement('div')
   playerHitCard.setAttribute('class', `card large ${randomCard}`)
-  document.body.appendChild(playerHitCard)
+  playerCardsEl.appendChild(playerHitCard)
   playerTotal()
   // playerHitCard.after(playerSecondCard)
 }
@@ -160,6 +163,7 @@ function stayBtn(){
   initialCardsEl[0].classList.add(dealerCards[0])
   stayBtnEl.disabled= true
   hitBtnEl.disabled= true
+  playerTotal()
   dealerTotal()
   checkDealerCards()
   compareHands()
@@ -196,13 +200,11 @@ function checkForBlackJack(number){
         playerMoney+= (bet*(3/2))
         bet=0
         //update message congrats you got blackjack, it pays 3/2
-        render()
       }else if (dealerCardCount=== 21){
         playerMoney+= bet
         bet=0
-        render()
-        dealerFirstCard.classList.remove('back-red')
-        dealerFirstCard.classList.add(dealerCards[0])
+        initialCardsEl[0].classList.remove('back-red')
+        initialCardsEl[0].classList.add(dealerCards[0])
         //update message: sorry you pushed
       }
     }else if (dealerCards[1].includes('A')){
@@ -241,7 +243,6 @@ function checkDealerCards(){
     //pay player
     playerMoney+= (bet*2)
     bet=0
-    render()
   }else{
     compareHands()
   }
@@ -260,7 +261,7 @@ function dealDealerCards(){
 function renderDealerCards(randomCard){
   const dealerXCard= document.createElement('div')
   dealerXCard.setAttribute('class', `card large ${randomCard}`)
-  document.body.appendChild(dealerXCard)
+  dealerCardsEl.appendChild(dealerXCard)
 }
 
 function compareHands(){
