@@ -13,10 +13,11 @@ const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
 const resetBetBtnEl= document.getElementById('reset-bet-button')
-const dealerFirstCard= document.getElementById("dealer-first-card")
-const dealerSecondCard= document.getElementById("dealer-second-card")
-const playerFirstCard= document.getElementById("player-first-card")
-const playerSecondCard= document.getElementById("player-second-card")
+// const dealerFirstCard= document.getElementById("dealer-first-card")
+// const dealerSecondCard= document.getElementById("dealer-second-card")
+// const playerFirstCard= document.getElementById("player-first-card")
+// const playerSecondCard= document.getElementById("player-second-card")
+const initialCardsEl= document.querySelectorAll('#initial-cards')
 const hitBtnEl= document.getElementById('hit-button')
 const stayBtnEl= document.getElementById('stay-button')
 const discardBtnEl= document.getElementById('discard-button')
@@ -33,7 +34,7 @@ dealBtnEl.addEventListener('click', dealBtnHandleClick)
 resetBetBtnEl.addEventListener('click', resetBetHandleClick)
 hitBtnEl.addEventListener('click', hitBtn)
 stayBtnEl.addEventListener('click', stayBtn)
-discardBtnEl.addEventListener('click', updatePlayingField)
+discardBtnEl.addEventListener('click', render)
 
 //functions
 function init(){
@@ -46,8 +47,8 @@ init()
 
 function render(){
   updateMessageBoard()
-  updateBtnVisibility()
-  // updatePlayingField()
+  updateBtns()
+  updatePlayingField()
 }
 
 function updateMessageBoard(){
@@ -55,7 +56,7 @@ function updateMessageBoard(){
   currentBetEl.innerText= `Current bet: $${bet}`
 }
 
-function updateBtnVisibility(){
+function updateBtns(){
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
   hitBtnEl.style.visibility= 'hidden'
@@ -75,6 +76,7 @@ function updatePlayingField(){
   playerFirstCard.classList.add("outline")
   playerSecondCard.classList.remove(`${playerCards[1]}`)
   playerSecondCard.classList.add("outline")
+  //remove any added divs
   playerCards=[]
   dealerCards=[]
 }
@@ -92,6 +94,10 @@ function handleClick(evt){
   }
 }
 
+function resetBetHandleClick(){
+  init()
+}
+
 function dealBtnHandleClick(){
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
@@ -99,94 +105,111 @@ function dealBtnHandleClick(){
     // chip.removeEventListener('click', handleClick)
     chip.disabled= true
   })
-  dealPlayerFirstCard()
-  dealDealerFirstCard()
-  dealPlayerSecondCard()
-  dealDealerSecondCard()
   stayBtnEl.style.visibility= 'visible'
   hitBtnEl.style.visibility= 'visible'
-  // dealCards()
+  // dealPlayerFirstCard()
+  // dealDealerFirstCard()
+  // dealPlayerSecondCard()
+  // dealDealerSecondCard()
+  stayBtnEl.disabled= false
+  hitBtnEl.disabled= false
+  dealCards()
   playerTotal()
   dealerTotal()
   checkForBlackJack(playerCardCount)
 }
 
-function resetBetHandleClick(){
-  init()
-}
 
-function dealPlayerFirstCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-  // let randomCard= deck[0]
-  playerCards.push(randomCard)
-  discardPile.push(randomCard)
-  let randomCardIdx= deck.indexOf(randomCard)
-  deck.splice(randomCardIdx, 1)
-  renderPlayerFirstCard(randomCard)
-}
-
-function renderPlayerFirstCard(randomCard){
-  playerFirstCard.classList.remove('outline')
-  playerFirstCard.classList.add(randomCard)
-}
-
-function dealDealerFirstCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-  // let randomCard= deck[0]
-  dealerCards.push(randomCard)
-  discardPile.push(randomCard)
-  let randomCardIdx= deck.indexOf(randomCard)
-  deck.splice(randomCardIdx, 1)
-  renderDealerFirstCard(randomCard)
-}
-
-function renderDealerFirstCard(randomCard){
-  dealerFirstCard.classList.remove('outline')
-  dealerFirstCard.classList.add(randomCard)
-  dealerFirstCard.classList.add('back-red')
-}
-
-function dealPlayerSecondCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-  // let randomCard= deck[1]
-  playerCards.push(randomCard)
-  discardPile.push(randomCard)
-  let randomCardIdx= deck.indexOf(randomCard)
-  deck.splice(randomCardIdx, 1)
-  renderPlayerSecondCard(randomCard)
-}
-
-function renderPlayerSecondCard(randomCard){
-  playerSecondCard.classList.remove('outline')
-  playerSecondCard.classList.add(randomCard)
-}
-
-function dealDealerSecondCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-  // let randomCard= deck[11]
-  dealerCards.push(randomCard)
-  discardPile.push(randomCard)
-  let randomCardIdx= deck.indexOf(randomCard)
-  deck.splice(randomCardIdx, 1)
-  renderDealerSecondCard(randomCard)
-}
-
-function renderDealerSecondCard(randomCard){
-  dealerSecondCard.classList.remove('outline')
-  dealerSecondCard.classList.add(randomCard)
-}
-
-// function dealCards(){
-//   for (i=0; i<5; i++){
-//     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//     playerCards.push(randomCard)
-//     let randomCardIdx= deck.indexOf(randomCard)
-//     deck.splice(randomCardIdx, 1)
-//     if (i===0){
-//       rendercDealerFirstCard(randomCard)
-//     }
-//   }
+// function dealPlayerFirstCard(){
+//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+//   // let randomCard= deck[0]
+//   playerCards.push(randomCard)
+//   discardPile.push(randomCard)
+//   let randomCardIdx= deck.indexOf(randomCard)
+//   deck.splice(randomCardIdx, 1)
+//   renderPlayerFirstCard(randomCard)
 // }
+
+// function renderPlayerFirstCard(randomCard){
+//   playerFirstCard.classList.remove('outline')
+//   playerFirstCard.classList.add(randomCard)
+// }
+
+// function dealDealerFirstCard(){
+//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+//   // let randomCard= deck[0]
+//   dealerCards.push(randomCard)
+//   discardPile.push(randomCard)
+//   let randomCardIdx= deck.indexOf(randomCard)
+//   deck.splice(randomCardIdx, 1)
+//   renderDealerFirstCard(randomCard)
+// }
+
+// function renderDealerFirstCard(randomCard){
+//   dealerFirstCard.classList.remove('outline')
+//   dealerFirstCard.classList.add(randomCard)
+//   dealerFirstCard.classList.add('back-red')
+// }
+
+// function dealPlayerSecondCard(){
+//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+//   // let randomCard= deck[1]
+//   playerCards.push(randomCard)
+//   discardPile.push(randomCard)
+//   let randomCardIdx= deck.indexOf(randomCard)
+//   deck.splice(randomCardIdx, 1)
+//   renderPlayerSecondCard(randomCard)
+// }
+
+// function renderPlayerSecondCard(randomCard){
+//   playerSecondCard.classList.remove('outline')
+//   playerSecondCard.classList.add(randomCard)
+// }
+
+// function dealDealerSecondCard(){
+//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+//   // let randomCard= deck[11]
+//   dealerCards.push(randomCard)
+//   discardPile.push(randomCard)
+//   let randomCardIdx= deck.indexOf(randomCard)
+//   deck.splice(randomCardIdx, 1)
+//   renderDealerSecondCard(randomCard)
+// }
+
+// function renderDealerSecondCard(randomCard){
+//   dealerSecondCard.classList.remove('outline')
+//   dealerSecondCard.classList.add(randomCard)
+// }
+
+function dealCards(){
+  for (i=0; i<4; i++){
+    let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+    playerCards.push(randomCard)
+    let randomCardIdx= deck.indexOf(randomCard)
+    deck.splice(randomCardIdx, 1)
+    renderInitialCards(randomCard)
+  }
+}
+
+function renderInitialCards(randomCard){
+ if (i===0){
+  initialCardsEl[2].classList.remove('outline')
+  initialCardsEl[2].classList.add(randomCard)
+ }else if (i===1){
+  initialCardsEl[0].classList.remove('outline')
+  initialCardsEl[0].classList.add(randomCard)
+  initialCardsEl[0].classList.add('back-red')
+ }else if (i===2){
+  initialCardsEl[3].classList.remove('outline')
+  initialCardsEl[3].classList.add(randomCard)
+ }else if (i===3){
+  initialCardsEl[1].classList.remove('outline')
+  initialCardsEl[1].classList.add(randomCard)
+ }
+}
+
+
+
 
 function hitBtn(){
   //add a card to player when pressed
@@ -204,8 +227,8 @@ function hitBtn(){
 function stayBtn(){
   dealerFirstCard.classList.remove('back-red')
   dealerFirstCard.classList.add(dealerCards[0])
-  stayBtnEl.disabled='true'
-  hitBtnEl.disabled='true'
+  stayBtnEl.disabled= true
+  hitBtnEl.disabled= true
   dealerTotal()
   checkDealerCards()
   compareHands()
@@ -312,11 +335,13 @@ function renderDealerCards(randomCard){
 function compareHands(){
   if (playerCardCount> dealerCardCount){
     playerMoney+= (bet*2)
+    //update message board
     bet=0
   }else if (playerCardCount=== dealerCardCount){
     playerMoney+= bet
     bet=0
   }else{
+    playerMoney
     bet=0
   }
   discardBtnEl.style.visibility= 'visible'
