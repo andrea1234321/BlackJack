@@ -32,19 +32,33 @@ dealBtnEl.addEventListener('click', dealBtnHandleClick)
 resetBetBtnEl.addEventListener('click', resetBetHandleClick)
 hitBtnEl.addEventListener('click', hitBtn)
 stayBtnEl.addEventListener('click', stayBtn)
+
+
 //functions
 function init(){
   playerMoney= 1000
-  playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   bet= 0
+  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  render()
+}
+init()
+
+function render(){
+  updateMessageBoard()
+  updateBtnVisibility()
+}
+
+function updateMessageBoard(){
+  playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
+}
+
+function updateBtnVisibility(){
   dealBtnEl.style.visibility= 'hidden'
   resetBetBtnEl.style.visibility= 'hidden'
   hitBtnEl.style.visibility= 'hidden'
   stayBtnEl.style.visibility= 'hidden'
-  deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
 }
-init()
 
 function handleClick(evt){
   if (!bet){
@@ -70,12 +84,12 @@ function dealBtnHandleClick(){
   dealDealerFirstCard()
   dealPlayerSecondCard()
   dealDealerSecondCard()
-  //function to evaluate if first two players cards are 21
   stayBtnEl.style.visibility= 'visible'
   hitBtnEl.style.visibility= 'visible'
   // dealCards()
   playerTotal()
   dealerTotal()
+  checkForBlackJack(playerCardCount)
 }
 
 function resetBetHandleClick(){
@@ -84,6 +98,7 @@ function resetBetHandleClick(){
 
 function dealPlayerFirstCard(){
   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  // let randomCard= deck[0]
   playerCards.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
@@ -96,7 +111,8 @@ function renderPlayerFirstCard(randomCard){
 }
 
 function dealDealerFirstCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  // let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  let randomCard= deck[0]
   dealerCards.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
@@ -111,6 +127,7 @@ function renderDealerFirstCard(randomCard){
 
 function dealPlayerSecondCard(){
   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  // let randomCard= deck[1]
   playerCards.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
@@ -123,7 +140,8 @@ function renderPlayerSecondCard(randomCard){
 }
 
 function dealDealerSecondCard(){
-  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  // let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  let randomCard= deck[11]
   dealerCards.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
@@ -165,6 +183,8 @@ function stayBtn(){
   stayBtnEl.disabled='true'
   hitBtnEl.disabled='true'
   dealerTotal()
+  checkDealerCards()
+  compareHands()
 }
 
 function playerTotal(){
@@ -179,37 +199,36 @@ function playerTotal(){
     else if (parseInt(cardValue)){
       playerCardCount+= parseInt(cardValue)
     }else if (cardValue=== 'A'){
-      playerCardCount+=11
+      playerCardCount+=1
     }
   })
-  if (playerCardCount>21 && cardsArr.includes("A")){
-    playerCardCount-=10
+  if (playerCardCount<12 && cardsArr.includes("A")){
+    playerCardCount+=10
   }
   console.log(`player total: ${playerCardCount}`)
-  checkForBlackJack(playerCardCount)
 }
 
 function checkForBlackJack(number){
   if (number===21 && cardsArr.length===2){
     stayBtnEl.disabled='true'
     hitBtnEl.disabled='true'
-    dealerFirstCard.classList.remove('back-red')
-    dealerFirstCard.classList.add(dealerCards[0])
+    dealerTotal()
     if (!dealerCards[1].includes('A')){
-      //and need to check if total for dealer!=21
-      playerMoney+= (bet*(3/2))
-      playerMoneyEl.innerText= `Money left: $${playerMoney}`
-      bet=0
-      currentBetEl.innerText= `Current bet: $${bet}`
+      if (dealerCardCount!== 21){
+        playerMoney+= (bet*(3/2))
+        bet=0
+        //update message congrats you got blackjack, it pays 3/2
+        render()
+      }else if (dealerCardCount=== 21){
+        playerMoney+= bet
+        bet=0
+        render()
+        dealerFirstCard.classList.remove('back-red')
+        dealerFirstCard.classList.add(dealerCards[0])
+        //update message: sorry you pushed
+      }
     }else if (dealerCards[1].includes('A')){
       //ask for insurance
-    }else{
-      dealerTotal()
-      if (dealerCardCount===21){
-        //player pushes
-      }else{
-        //pay player
-      }
     }
   }
 }
@@ -226,11 +245,45 @@ function dealerTotal(){
     else if (parseInt(cardValue)){
       dealerCardCount+= parseInt(cardValue)
     }else if (cardValue=== 'A'){
-      dealerCardCount+=11
+      dealerCardCount+=1
     }
   })
-  if (dealerCardCount>21 && cardsArr.includes("A")){
-    dealerCardCount-=10
+  if (dealerCardCount<12 && cardsArr.includes("A")){
+    dealerCardCount+=10
   }
   console.log(`dealer total: ${dealerCardCount}`)
+}
+
+function checkDealerCards(){
+  dealerTotal()
+  if (dealerCardCount<17){
+    //deal out cards function
+    dealDealerCards()
+  }else if (dealerCardCount>21){
+    //pay player
+    playerMoney+= bet*2
+    bet=0
+    render()
+  }else{
+    compareHands()
+  }
+}
+
+function dealDealerCards(){
+  let randomCard= deck[(Math.floor(Math.random()*deck.length))]
+  dealerCards.push(randomCard)
+  let randomCardIdx= deck.indexOf(randomCard)
+  deck.splice(randomCardIdx, 1)
+  renderDealerCards(randomCard)
+  checkDealerCards()
+}
+
+function renderDealerCards(randomCard){
+  const dealerXCard= document.createElement('div')
+  dealerXCard.setAttribute('class', `card large ${randomCard}`)
+  document.body.appendChild(dealerXCard)
+}
+
+function compareHands(){
+
 }
