@@ -68,14 +68,10 @@ function updateBtns(){
 }
 
 function updatePlayingField(){
-  dealerFirstCard.classList.remove(`${dealerCards[0]}`)
-  dealerFirstCard.classList.add("outline")
-  dealerSecondCard.classList.remove(`${dealerCards[1]}`)
-  dealerSecondCard.classList.add("outline")
-  playerFirstCard.classList.remove(`${playerCards[0]}`)
-  playerFirstCard.classList.add("outline")
-  playerSecondCard.classList.remove(`${playerCards[1]}`)
-  playerSecondCard.classList.add("outline")
+  initialCardsEl.forEach(function(initialCard){
+    let className= initialCard.getAttribute('class')
+    initialCard.classList.replace(className.slice(11), 'outline')
+  })
   //remove any added divs
   playerCards=[]
   dealerCards=[]
@@ -107,10 +103,6 @@ function dealBtnHandleClick(){
   })
   stayBtnEl.style.visibility= 'visible'
   hitBtnEl.style.visibility= 'visible'
-  // dealPlayerFirstCard()
-  // dealDealerFirstCard()
-  // dealPlayerSecondCard()
-  // dealDealerSecondCard()
   stayBtnEl.disabled= false
   hitBtnEl.disabled= false
   dealCards()
@@ -119,72 +111,10 @@ function dealBtnHandleClick(){
   checkForBlackJack(playerCardCount)
 }
 
-
-// function dealPlayerFirstCard(){
-//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//   // let randomCard= deck[0]
-//   playerCards.push(randomCard)
-//   discardPile.push(randomCard)
-//   let randomCardIdx= deck.indexOf(randomCard)
-//   deck.splice(randomCardIdx, 1)
-//   renderPlayerFirstCard(randomCard)
-// }
-
-// function renderPlayerFirstCard(randomCard){
-//   playerFirstCard.classList.remove('outline')
-//   playerFirstCard.classList.add(randomCard)
-// }
-
-// function dealDealerFirstCard(){
-//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//   // let randomCard= deck[0]
-//   dealerCards.push(randomCard)
-//   discardPile.push(randomCard)
-//   let randomCardIdx= deck.indexOf(randomCard)
-//   deck.splice(randomCardIdx, 1)
-//   renderDealerFirstCard(randomCard)
-// }
-
-// function renderDealerFirstCard(randomCard){
-//   dealerFirstCard.classList.remove('outline')
-//   dealerFirstCard.classList.add(randomCard)
-//   dealerFirstCard.classList.add('back-red')
-// }
-
-// function dealPlayerSecondCard(){
-//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//   // let randomCard= deck[1]
-//   playerCards.push(randomCard)
-//   discardPile.push(randomCard)
-//   let randomCardIdx= deck.indexOf(randomCard)
-//   deck.splice(randomCardIdx, 1)
-//   renderPlayerSecondCard(randomCard)
-// }
-
-// function renderPlayerSecondCard(randomCard){
-//   playerSecondCard.classList.remove('outline')
-//   playerSecondCard.classList.add(randomCard)
-// }
-
-// function dealDealerSecondCard(){
-//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//   // let randomCard= deck[11]
-//   dealerCards.push(randomCard)
-//   discardPile.push(randomCard)
-//   let randomCardIdx= deck.indexOf(randomCard)
-//   deck.splice(randomCardIdx, 1)
-//   renderDealerSecondCard(randomCard)
-// }
-
-// function renderDealerSecondCard(randomCard){
-//   dealerSecondCard.classList.remove('outline')
-//   dealerSecondCard.classList.add(randomCard)
-// }
-
 function dealCards(){
   for (i=0; i<4; i++){
     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-    playerCards.push(randomCard)
+    discardPile.push(randomCard)
     let randomCardIdx= deck.indexOf(randomCard)
     deck.splice(randomCardIdx, 1)
     renderInitialCards(randomCard)
@@ -195,21 +125,22 @@ function renderInitialCards(randomCard){
  if (i===0){
   initialCardsEl[2].classList.remove('outline')
   initialCardsEl[2].classList.add(randomCard)
+  playerCards.push(randomCard)
  }else if (i===1){
   initialCardsEl[0].classList.remove('outline')
   initialCardsEl[0].classList.add(randomCard)
   initialCardsEl[0].classList.add('back-red')
+  dealerCards.push(randomCard)
  }else if (i===2){
   initialCardsEl[3].classList.remove('outline')
   initialCardsEl[3].classList.add(randomCard)
+  playerCards.push(randomCard)
  }else if (i===3){
   initialCardsEl[1].classList.remove('outline')
   initialCardsEl[1].classList.add(randomCard)
+  dealerCards.push(randomCard)
  }
 }
-
-
-
 
 function hitBtn(){
   //add a card to player when pressed
@@ -225,8 +156,8 @@ function hitBtn(){
   // playerHitCard.after(playerSecondCard)
 }
 function stayBtn(){
-  dealerFirstCard.classList.remove('back-red')
-  dealerFirstCard.classList.add(dealerCards[0])
+  initialCardsEl[0].classList.remove('back-red')
+  initialCardsEl[0].classList.add(dealerCards[0])
   stayBtnEl.disabled= true
   hitBtnEl.disabled= true
   dealerTotal()
