@@ -334,7 +334,7 @@ function checkDeck(){
 
 function discardBtnHandleClick(){
   if (step==='player blackjack'){
-    playerMoney+= (bet*(3/2))
+    playerMoney+= bet+(bet*(3/2))
     bet=0
   }else if (step==='blackjack push' || step==='push'){
     playerMoney+= bet
