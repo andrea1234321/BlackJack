@@ -1,7 +1,7 @@
 //const
 const chipVals= [5, 10, 25, 100]
 //variables
-let playerMoney, bet, dealBtn, chipBtn, cardsOutline, hitBtn, stayBtn,dealerCardCount, playerCardCount, round, blackJack
+let playerMoney, bet, cardsOutline, dealerCardCount, playerCardCount, round, blackJack
 let deck= []
 let playerCards= []
 let dealerCards= []
@@ -40,12 +40,7 @@ function init(){
   playerMoney= 1000
   bet= 0
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  chipVals
-  cardsOutline= true
-  chipBtn= false
-  dealBtn= false
-  hitBtn= false
-  stayBtn= false
+  step= 'cardsOutline'
   blackJack= false
   round= 0
   renderInit()
@@ -61,8 +56,14 @@ function renderInit(){
 function updateMessageBoard(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
-  if (playerCardCount>0){
+  if (playerCardCount<21){
     playerMessageEl.innerText= `Card total: ${playerCardCount}`
+  }else if (playerCardCount>21){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted`
+  }else if (blackJack){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
+  }else if (playerCardCount===21 && dealerCardCount!==21){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, aye 21, I would stay if i were you`
   }
 }
 
@@ -75,10 +76,10 @@ function updateBtns(){
   chipsEls.forEach(function(chip){
     chip.disabled= false
   })
-  if (chipBtn){
+  if (step==='chipBtn'){
     dealBtnEl.style.visibility= 'visible'
     resetBetBtnEl.style.visibility= 'visible'
-  }else if (dealBtn){
+  }else if (step==='dealBtn'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
@@ -86,7 +87,7 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
-  }else if (stayBtn){
+  }else if (step==='stayBtn'){
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= true
@@ -111,7 +112,7 @@ function updateBtns(){
 function updatePlayingField(){
   playerCardsEl.replaceChildren()
   dealerCardsEl.replaceChildren()
-  if (cardsOutline){
+  if (step==='cardsOutline'){
     for (let i=0; i<2; i++){
       const playersCardsOutline= document.createElement('div')
       playersCardsOutline.setAttribute('class', `card large outline`)
@@ -122,7 +123,7 @@ function updatePlayingField(){
       dealersCardsOutline.setAttribute('class', `card large outline`)
       dealerCardsEl.appendChild(dealersCardsOutline)
     }
-  }if (dealBtn || playerCardCount<21){
+  }if (step==='dealBtn' || playerCardCount<21){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
@@ -136,7 +137,7 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (playerCardCount>=21 || stayBtn){
+  }if (playerCardCount>=21 || step==='stayBtn'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
@@ -153,7 +154,7 @@ function updatePlayingField(){
   } 
 
 function handleClick(evt){
-  chipBtn=true
+  step= 'chipBtn'
   if (playerMoney>=(parseInt(evt.target.id))){
     playerMoney-=(parseInt(evt.target.id))
     bet+=(parseInt(evt.target.id))
@@ -170,8 +171,7 @@ function resetBetHandleClick(){
 }
 
 function dealBtnHandleClick(){
-  chipBtn= false
-  dealBtn= true
+  step= 'dealBtn'
   updateBtns()
   dealPlayerFirstCards()
   dealDealerFirstCards()
@@ -179,7 +179,6 @@ function dealBtnHandleClick(){
 }
 
 function dealPlayerFirstCards(){
-  cardsOutline= false
   for (let i=0; i<2; i++){
     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
     playerCards.push(randomCard)
@@ -194,7 +193,6 @@ function dealPlayerFirstCards(){
 }
 
 function dealDealerFirstCards(){
-  cardsOutline= false
   for (let i=0; i<2; i++){
     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
     dealerCards.push(randomCard)
@@ -227,8 +225,7 @@ function dealDealerCards(){
 
 
 function hitButton(){
-  dealBtn= false
-  hitBtn= true
+  step= 'hitBtn'
   playerTotal()
   dealPlayerCards()
   checkForBust()
@@ -236,8 +233,7 @@ function hitButton(){
   // playerHitCard.after(playerSecondCard)
 }
 function stayButton(){
-  hitBtn= false
-  stayBtn= true
+  step= 'stayBtn'
   updateBtns()
   checkDealerCards()
   updatePlayingField()
