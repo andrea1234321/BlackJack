@@ -28,7 +28,7 @@ const dealerMessageEl= document.getElementById('dealer-message')
 
 //event-listeners-------------------------------------------------------
 chipsEls.forEach(function(chip, idx){
-  chip.innerText=`$${chipVals[idx]}`
+  chip.innerText=`${chipVals[idx]}`
   chip.addEventListener('click', handleClick)
 })
 
@@ -165,9 +165,9 @@ function updatePlayingField(){
 
 function handleClick(evt){
   step= 'chip'
-  if (playerMoney>=(parseInt(evt.target.id))){
-    playerMoney-=(parseInt(evt.target.id))
-    bet+=(parseInt(evt.target.id))
+  if (playerMoney>=(parseInt(evt.target.id.slice(4,7)))){
+    playerMoney-=(parseInt(evt.target.id.slice(4,7)))
+    bet+=(parseInt(evt.target.id.slice(4,7)))
   }
   render()
 }
