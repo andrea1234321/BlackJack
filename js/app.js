@@ -45,11 +45,11 @@ function init(){
   bet= 0
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   step= 'card outline'
-  renderInit()
+  render()
 }
 init()
 
-function renderInit(){
+function render(){
   updateMessageBoard()
   updateBtns()
   updatePlayingField()
@@ -58,9 +58,9 @@ function renderInit(){
 function updateMessageBoard(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
-  if (step==='dealBtn' || step==='hitBtn'){
+  if (step==='deal' || step==='hit'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}`
-  }else if (step==='stayBtn'){
+  }else if (step==='stay'){
     dealerMessageEl.innerText= `Dealer card total: ${dealerCardCount}`
   }else if (step==='bust'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted!`
@@ -77,42 +77,32 @@ function updateMessageBoard(){
   }else if (step=== 'dealer wins'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry dealers hand equals ${dealerCardCount} and yours is only ${playerCardCount}, you lose your bet`
   }
-  // if (playerCardCount<21){
-  //   playerMessageEl.innerText= `Card total: ${playerCardCount}`
-  // }else if (playerCardCount>21){
-  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted`
-  // }else if (step==='player blackjack'){
-  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
-  // }else if (playerCardCount===21 && dealerCardCount!==21){
-  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, aye 21, I would stay if i were you`
-  // }else if (dealerCardCount===21 && dealerCards.length===2){
-  //   playerMessageEl.innerText= `Sorry, dealer got blackjack`
-  // }if (step==='stayBtn'){
-  //   dealerMessageEl.innerText= `Dealer card total: ${dealerCardCount}`
-  // }
 }
 
 function updateBtns(){
-  dealBtnEl.style.visibility= 'hidden'
-  resetBetBtnEl.style.visibility= 'hidden'
-  hitBtnEl.style.visibility= 'hidden'
-  stayBtnEl.style.visibility= 'hidden'
-  discardBtnEl.style.visibility= 'hidden'
-  chipsEls.forEach(function(chip){
-    chip.disabled= false
-  })
-  if (step==='chipBtn'){
+  if (step==='card outline' || step==='reset'){
+    dealBtnEl.style.visibility= 'hidden'
+    resetBetBtnEl.style.visibility= 'hidden'
+    hitBtnEl.style.visibility= 'hidden'
+    stayBtnEl.style.visibility= 'hidden'
+    discardBtnEl.style.visibility= 'hidden'
+    chipsEls.forEach(function(chip){
+      chip.disabled= false
+    })
+  }else if (step==='chip'){
     dealBtnEl.style.visibility= 'visible'
     resetBetBtnEl.style.visibility= 'visible'
-  }else if (step==='dealBtn'){
+  }else if (step==='deal' || step==='hit'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
+    dealBtnEl.style.visibility= 'hidden'
+    resetBetBtnEl.style.visibility= 'hidden'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
-  }else if (step==='stayBtn' || step==='player blackjack'){
+  }else{
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= true
@@ -121,20 +111,14 @@ function updateBtns(){
       chip.disabled= true
     })
     discardBtnEl.style.visibility= 'visible'
-  }else if (step==='bust' || step=== 'dealer blackjack'){
-    discardBtnEl.style.visibility= 'visible'
-    chipsEls.forEach(function(chip){
-      chip.disabled= true
-    })
-    stayBtnEl.style.visibility= 'visible'
-    hitBtnEl.style.visibility= 'visible'
-    stayBtnEl.disabled= true
-    hitBtnEl.disabled= true
+    dealBtnEl.style.visibility= 'hidden'
+    resetBetBtnEl.style.visibility= 'hidden'
   }
 }
 
 function updatePlayingField(){
-  if (step==='card outline'){
+  if (step==='card outline' || step==='chip' | step==='reset'){
+    //4 empty cards
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     for (let i=0; i<2; i++){
@@ -147,7 +131,8 @@ function updatePlayingField(){
       dealersCardsOutline.setAttribute('class', `card large outline`)
       dealerCardsEl.appendChild(dealersCardsOutline)
     }
-  }if (step==='dealBtn' || playerCardCount<21){
+  }else if (step==='deal' || step==='hit'){
+    //dealer face down card
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
@@ -161,21 +146,7 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (playerCardCount===21 && playerCards.length>2){
-    playerCardsEl.replaceChildren()
-    dealerCardsEl.replaceChildren()
-    let dealerfirstCard= document.createElement('div')
-    dealerfirstCard.setAttribute('class', `card large back-red`)
-    dealerCardsEl.appendChild(dealerfirstCard)
-    let dealerCurrentCards= document.createElement('div')
-    dealerCurrentCards.setAttribute('class', `card large ${dealerCards[1]}`)
-    dealerCardsEl.appendChild(dealerCurrentCards)
-    playerCards.forEach(function (cardName){
-      let playerCurrentCards= document.createElement('div')
-      playerCurrentCards.setAttribute('class', `card large ${cardName}`)
-      playerCardsEl.appendChild(playerCurrentCards)
-    })
-  }if (playerCardCount>21 || step==='stayBtn' || step==='dealer blackjack' || step=== 'player blackjack'){
+  }else{
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
@@ -189,32 +160,30 @@ function updatePlayingField(){
       playerCardsEl.appendChild(playerCurrentCards)
     })
   }
-  } 
+} 
 
 function handleClick(evt){
-  step= 'chipBtn'
+  step= 'chip'
   if (playerMoney>=(parseInt(evt.target.id))){
     playerMoney-=(parseInt(evt.target.id))
     bet+=(parseInt(evt.target.id))
   }
-  updateBtns()
-  updateMessageBoard()
+  render()
 }
 
 function resetBetHandleClick(){
+  step= 'reset'
   playerMoney+= bet
   bet=0
-  updateMessageBoard()
-  updateBtns()
+  render()
 }
 
 function dealBtnHandleClick(){
-  step= 'dealBtn'
-  updateBtns()
+  step= 'deal'
   dealPlayerFirstCards()
   dealDealerFirstCards()
   checkForBlackJack()
-  updateMessageBoard()
+  render()
 }
 
 function dealPlayerFirstCards(){
@@ -224,7 +193,6 @@ function dealPlayerFirstCards(){
     discardPile.push(randomCard)
     let randomCardIdx= deck.indexOf(randomCard)
     deck.splice(randomCardIdx, 1)
-    updatePlayingField()
   }
 }
 
@@ -235,7 +203,6 @@ function dealDealerFirstCards(){
     discardPile.push(randomCard)
     let randomCardIdx= deck.indexOf(randomCard)
     deck.splice(randomCardIdx, 1)
-    updatePlayingField()
   }
 }
 
@@ -260,14 +227,14 @@ function dealDealerCards(){
 
 
 function hitButton(){
-  step= 'hitBtn'
+  step= 'hit'
   dealPlayerCards()
   checkForBust()
-  updateMessageBoard()
+  render()
   // playerHitCard.after(playerSecondCard)
 }
 function stayButton(){
-  step= 'stayBtn'
+  step= 'stay'
   updateBtns()
   checkDealerCards()
   updateMessageBoard()
@@ -392,5 +359,5 @@ function discardBtnHandleClick(){
   step= 'card outline'
   playerCards=[]
   dealerCards=[]
-  renderInit()
+  render()
 }
