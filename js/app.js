@@ -19,6 +19,7 @@ const playerCardsEl= document.querySelector('.player-card-container')
 const hitBtnEl= document.getElementById('hit-button')
 const stayBtnEl= document.getElementById('stay-button')
 const discardBtnEl= document.getElementById('discard-button')
+const playerMessageEl= document.getElementById('player-message')
 
 
 
@@ -40,10 +41,12 @@ function init(){
   bet= 0
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   chipVals
-  dealBtn= false
-  chipBtn= false
   cardsOutline= true
+  chipBtn= false
+  dealBtn= false
   hitBtn= false
+  stayBtn= false
+  blackJack= false
   round= 0
   renderInit()
 }
@@ -58,6 +61,9 @@ function renderInit(){
 function updateMessageBoard(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
+  if (playerCardCount>0){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}`
+  }
 }
 
 function updateBtns(){
@@ -88,14 +94,17 @@ function updateBtns(){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
+    discardBtnEl.style.visibility= 'visible'
   }else if (blackJack){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
-    stayBtnEl.disabled='true'
-    hitBtnEl.disabled='true'
+    stayBtnEl.disabled=true
+    hitBtnEl.disabled=true
+  } else if (playerCardCount>=21){
+    discardBtnEl.style.visibility= 'visible'
   }
 }
 
@@ -113,7 +122,9 @@ function updatePlayingField(){
       dealersCardsOutline.setAttribute('class', `card large outline`)
       dealerCardsEl.appendChild(dealersCardsOutline)
     }
-  }if (dealBtn || hitBtn){
+  }if (dealBtn || playerCardCount<21){
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
     dealerfirstCard.setAttribute('class', `card large back-red`)
     dealerCardsEl.appendChild(dealerfirstCard)
@@ -125,7 +136,7 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (stayBtn || blackJack){
+  }if (playerCardCount>=21 || stayBtn){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
@@ -162,9 +173,9 @@ function dealBtnHandleClick(){
   chipBtn= false
   dealBtn= true
   updateBtns()
-  dealDealerFirstCards()
   dealPlayerFirstCards()
-
+  dealDealerFirstCards()
+  updateMessageBoard()
 }
 
 function dealPlayerFirstCards(){
@@ -200,6 +211,7 @@ function dealPlayerCards(){
   discardPile.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
+  playerTotal()
   updatePlayingField()
 }
 
@@ -209,6 +221,7 @@ function dealDealerCards(){
   discardPile.push(randomCard)
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
+  dealerTotal()
   updatePlayingField()
 }
 
@@ -216,10 +229,10 @@ function dealDealerCards(){
 function hitButton(){
   dealBtn= false
   hitBtn= true
-  dealPlayerCards()
-  updatePlayingField()
   playerTotal()
+  dealPlayerCards()
   checkForBust()
+  updateMessageBoard()
   // playerHitCard.after(playerSecondCard)
 }
 function stayButton(){
@@ -266,9 +279,9 @@ function checkForBust(){
 }
 
 function checkForBlackJack(number){
+  blackJack= true
+  dealBtn= false
   if (number===21 && cardsArr.length===2){
-    blackJack= true
-    dealBtn= false
     updateBtns()
     dealerTotal()
     if (!dealerCards[1].includes('A')){
