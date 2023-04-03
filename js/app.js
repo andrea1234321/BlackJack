@@ -58,6 +58,7 @@ function render(){
 function updateMessageBoard(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
+  playerMessageEl.innerText= ''
   if (step==='deal' || step==='hit'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}`
   }else if (step==='stay'){
@@ -213,7 +214,6 @@ function dealPlayerCards(){
   let randomCardIdx= deck.indexOf(randomCard)
   deck.splice(randomCardIdx, 1)
   playerTotal()
-  updatePlayingField()
 }
 
 function dealDealerCards(){
@@ -231,13 +231,11 @@ function hitButton(){
   dealPlayerCards()
   checkForBust()
   render()
-  // playerHitCard.after(playerSecondCard)
 }
 function stayButton(){
   step= 'stay'
-  updateBtns()
   checkDealerCards()
-  updateMessageBoard()
+  render()
 }
 
 
@@ -279,7 +277,6 @@ function dealerTotal(){
   if (dealerCardCount<12 && cardsArr.includes("A")){
     dealerCardCount+=10
   }
-  // checkDealerCards(dealerCardCount)
 }
 
 function checkForBust(){
@@ -289,8 +286,6 @@ function checkForBust(){
     //discard btn appears
     // playerMoney
     // bet=0
-    updatePlayingField()
-    updateBtns()
   }
 }
 
@@ -325,16 +320,12 @@ function checkDealerCards(){
   if (dealerCardCount<17){
     dealDealerCards()
   }else if (dealerCardCount>21){
-    // show discard btn
     step= 'player wins'
     // playerMoney+= (bet*2)
     // bet=0
-    // updateMessageBoard()
   }else if (dealerCardCount>=17 && dealerCardCount<21){
     compareHands()
   }
-  updatePlayingField()
-  updateMessageBoard()
 }
 
 
@@ -352,10 +343,22 @@ function compareHands(){
     // playerMoney
     // bet=0
   }
-    updateMessageBoard()
 }
 
 function discardBtnHandleClick(){
+  if (step==='player blackjack'){
+    playerMoney+= (bet*(3/2))
+    bet=0
+  }else if (step==='blackjack push' || step==='push'){
+    playerMoney+= bet
+    bet=0
+  }else if (step==='player wins'){
+    playerMoney+= (bet*2)
+    bet=0
+  }else{
+    playerMoney
+    bet=0
+  }
   step= 'card outline'
   playerCards=[]
   dealerCards=[]
