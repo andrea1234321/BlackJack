@@ -283,9 +283,6 @@ function checkForBust(){
   playerTotal()
   if (playerCardCount>21){
     step= 'bust'
-    //discard btn appears
-    // playerMoney
-    // bet=0
   }
 }
 
@@ -294,26 +291,15 @@ function checkForBlackJack(){
   dealerTotal()
   if (playerCardCount===21 && dealerCardCount!==21){
     step= 'player blackjack'
-    //discard btn should appear tha will do the below 
-    // playerMoney+= (bet*(3/2))
-    // bet=0
-    // updateMessageBoard()
   } else if (playerCardCount!==21 && dealerCardCount===21){
     step= 'dealer blackjack'
-    //discard btn should appear
-    // playerMoney
-    // bet=0
   } else if (playerCardCount===21 && dealerCardCount===21){
     step= 'blackjack push'
-    //discard btn should apper
-    // playerMoney+= bet
-    // bet=0
   }
   updateBtns()
   updatePlayingField()
   updateMessageBoard()
 }
-
 
 function checkDealerCards(){
   dealerTotal()
@@ -321,27 +307,28 @@ function checkDealerCards(){
     dealDealerCards()
   }else if (dealerCardCount>21){
     step= 'player wins'
-    // playerMoney+= (bet*2)
-    // bet=0
   }else if (dealerCardCount>=17 && dealerCardCount<21){
     compareHands()
   }
 }
 
-
 function compareHands(){
   if (playerCardCount> dealerCardCount){
     step= 'player wins'
-    // playerMoney+= (bet*2)
-    // bet=0
   }else if (playerCardCount=== dealerCardCount){
     step= 'push'
-    // playerMoney+= bet
-    // bet=0
   }else{
     step= 'dealer wins'
-    // playerMoney
-    // bet=0
+  }
+}
+
+function checkDeck(){
+  if (deck.length<10){
+    deck.forEach(function(card){
+      discardPile.push(card)
+      deck= discardPile
+    })
+    discardPile= []
   }
 }
 
@@ -359,6 +346,7 @@ function discardBtnHandleClick(){
     playerMoney
     bet=0
   }
+  checkDeck()
   step= 'card outline'
   playerCards=[]
   dealerCards=[]
