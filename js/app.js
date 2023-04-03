@@ -1,13 +1,16 @@
-//const
+//const---------------------------------------------------------------
 const chipVals= [5, 10, 25, 100]
-//variables
-let playerMoney, bet, cardsOutline, dealerCardCount, playerCardCount, round, blackJack
+
+
+//variables-----------------------------------------------------------
+let playerMoney, bet, dealerCardCount, playerCardCount
 let deck= []
 let playerCards= []
 let dealerCards= []
 let discardPile= []
-//cached elements
 
+
+//cached elements------------------------------------------------------
 const chipsEls= document.querySelectorAll(".chips>button")
 const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
@@ -23,8 +26,7 @@ const playerMessageEl= document.getElementById('player-message')
 const dealerMessageEl= document.getElementById('dealer-message')
 
 
-
-//event-listeners
+//event-listeners-------------------------------------------------------
 chipsEls.forEach(function(chip, idx){
   chip.innerText=`$${chipVals[idx]}`
   chip.addEventListener('click', handleClick)
@@ -36,14 +38,13 @@ hitBtnEl.addEventListener('click', hitButton)
 stayBtnEl.addEventListener('click', stayButton)
 discardBtnEl.addEventListener('click', discardBtnHandleClick)
 
-//functions
+
+//functions----------------------------------------------------------
 function init(){
   playerMoney= 1000
   bet= 0
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   step= 'card outline'
-  blackJack= false
-  round= 0
   renderInit()
 }
 init()
@@ -57,19 +58,38 @@ function renderInit(){
 function updateMessageBoard(){
   playerMoneyEl.innerText= `Total Money: $${playerMoney}`
   currentBetEl.innerText= `Current bet: $${bet}`
-  if (playerCardCount<21){
+  if (step==='dealBtn' || step==='hitBtn'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}`
-  }else if (playerCardCount>21){
-    playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted`
-  }else if (step==='player blackjack'){
-    playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
-  }else if (playerCardCount===21 && dealerCardCount!==21){
-    playerMessageEl.innerText= `Card total: ${playerCardCount}, aye 21, I would stay if i were you`
-  }else if (dealerCardCount===21 && dealerCards.length===2){
-    playerMessageEl.innerText= `Sorry, dealer got blackjack`
-  }if (step==='stayBtn'){
+  }else if (step==='stayBtn'){
     dealerMessageEl.innerText= `Dealer card total: ${dealerCardCount}`
+  }else if (step==='bust'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted!`
+  }else if (step=== 'player blackjack'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
+  }else if (step==='dealer blackjack'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, oh I'm sorry dealer got blackjack`
+  }else if (step=== 'blackjack push'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, yay you got blackjack, but unfortunately so did the dealer, you pushed`
+  }else if (step=== 'player wins'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, yay you win! you get 2X your bet!`
+  }else if (step=== 'push'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, you pushed the dealer!`
+  }else if (step=== 'dealer wins'){
+    playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry dealers hand equals ${dealerCardCount} and yours is only ${playerCardCount}, you lose your bet`
   }
+  // if (playerCardCount<21){
+  //   playerMessageEl.innerText= `Card total: ${playerCardCount}`
+  // }else if (playerCardCount>21){
+  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted`
+  // }else if (step==='player blackjack'){
+  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
+  // }else if (playerCardCount===21 && dealerCardCount!==21){
+  //   playerMessageEl.innerText= `Card total: ${playerCardCount}, aye 21, I would stay if i were you`
+  // }else if (dealerCardCount===21 && dealerCards.length===2){
+  //   playerMessageEl.innerText= `Sorry, dealer got blackjack`
+  // }if (step==='stayBtn'){
+  //   dealerMessageEl.innerText= `Dealer card total: ${dealerCardCount}`
+  // }
 }
 
 function updateBtns(){
@@ -307,7 +327,7 @@ function checkForBust(){
   }
 }
 
-function checkForBlackJack(number){
+function checkForBlackJack(){
   playerTotal()
   dealerTotal()
   if (playerCardCount===21 && dealerCardCount!==21){
@@ -315,42 +335,21 @@ function checkForBlackJack(number){
     //discard btn should appear tha will do the below 
     // playerMoney+= (bet*(3/2))
     // bet=0
-    updateBtns()
-    updatePlayingField()
     // updateMessageBoard()
   } else if (playerCardCount!==21 && dealerCardCount===21){
     step= 'dealer blackjack'
     //discard btn should appear
     // playerMoney
     // bet=0
-    updatePlayingField()
-    updateBtns()
   } else if (playerCardCount===21 && dealerCardCount===21){
-    step= 'push'
+    step= 'blackjack push'
     //discard btn should apper
     // playerMoney+= bet
     // bet=0
-    updatePlayingField()
-    updateBtns()
   }
-  // if (number===21 && cardsArr.length===2){
-  //   if (dealerCards[1].includes('A')){
-  //     if (dealerCardCount!== 21){
-  //       step= 'player blackjack'
-  //       playerMoney+= (bet*(3/2))
-  //       bet=0
-  //       updateBtns()
-  //       updatePlayingField()
-  //       updateMessageBoard()
-  //     }else if (dealerCardCount=== 21){
-  //       step= 'push'
-  //       playerMoney+= bet
-  //       bet=0
-  //       updatePlayingField()
-  //       updateMessageBoard()
-  //     }
-  //   }
-  // }
+  updateBtns()
+  updatePlayingField()
+  updateMessageBoard()
 }
 
 
@@ -359,30 +358,34 @@ function checkDealerCards(){
   if (dealerCardCount<17){
     dealDealerCards()
   }else if (dealerCardCount>21){
-    playerMoney+= (bet*2)
-    bet=0
-    updateMessageBoard()
-  }else if (dealerCardCount===21){
-    // updatePlayingField()
-    updateMessageBoard()
-  }else{
+    // show discard btn
+    step= 'player wins'
+    // playerMoney+= (bet*2)
+    // bet=0
+    // updateMessageBoard()
+  }else if (dealerCardCount>=17 && dealerCardCount<21){
     compareHands()
   }
   updatePlayingField()
+  updateMessageBoard()
 }
 
 
 function compareHands(){
   if (playerCardCount> dealerCardCount){
-    playerMoney+= (bet*2)
-    bet=0
+    step= 'player wins'
+    // playerMoney+= (bet*2)
+    // bet=0
   }else if (playerCardCount=== dealerCardCount){
-    playerMoney+= bet
-    bet=0
+    step= 'push'
+    // playerMoney+= bet
+    // bet=0
   }else{
-    playerMoney
-    bet=0
+    step= 'dealer wins'
+    // playerMoney
+    // bet=0
   }
+    updateMessageBoard()
 }
 
 function discardBtnHandleClick(){
