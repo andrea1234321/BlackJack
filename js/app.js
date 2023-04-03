@@ -1,7 +1,7 @@
 //const
 const chipVals= [5, 10, 25, 100]
 //variables
-let playerMoney, bet, dealBtn, chipBtn, cardsOutline, hitBtn, stayBtn,dealerCardCount, playerCardCount
+let playerMoney, bet, dealBtn, chipBtn, cardsOutline, hitBtn, stayBtn,dealerCardCount, playerCardCount, round, blackJack
 let deck= []
 let playerCards= []
 let dealerCards= []
@@ -44,6 +44,7 @@ function init(){
   chipBtn= false
   cardsOutline= true
   hitBtn= false
+  round= 0
   renderInit()
 }
 init()
@@ -79,6 +80,22 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
+  }else if (stayBtn){
+    stayBtnEl.style.visibility= 'visible'
+    hitBtnEl.style.visibility= 'visible'
+    stayBtnEl.disabled= true
+    hitBtnEl.disabled= true
+    chipsEls.forEach(function(chip){
+      chip.disabled= true
+    })
+  }else if (blackJack){
+    chipsEls.forEach(function(chip){
+      chip.disabled= true
+    })
+    stayBtnEl.style.visibility= 'visible'
+    hitBtnEl.style.visibility= 'visible'
+    stayBtnEl.disabled='true'
+    hitBtnEl.disabled='true'
   }
 }
 
@@ -108,7 +125,9 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (stayBtn){
+  }if (stayBtn || blackJack){
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
       let dealerCurrentCards= document.createElement('div')
       dealerCurrentCards.setAttribute('class', `card large ${cardName}`)
@@ -120,16 +139,6 @@ function updatePlayingField(){
       playerCardsEl.appendChild(playerCurrentCards)
     })
   }
-  // initialCardsEl.forEach(function(initialCard){
-  //   let className= initialCard.getAttribute('class')
-  //   initialCard.classList.replace(className.slice(11), 'outline')
-  // })
-  // if (playerCards===[] && dealerCards===[]){
-    
-  // }else {
-  //   dealerCardsEl.replaceChildren()
-  //   playerCardsEl.replaceChildren()
-  //   }
   } 
 
 function handleClick(evt){
@@ -155,6 +164,7 @@ function dealBtnHandleClick(){
   updateBtns()
   dealDealerFirstCards()
   dealPlayerFirstCards()
+
 }
 
 function dealPlayerFirstCards(){
@@ -203,65 +213,23 @@ function dealDealerCards(){
 }
 
 
-// function dealCards(){
-//   for (i=0; i<4; i++){
-//     let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//     discardPile.push(randomCard)
-//     let randomCardIdx= deck.indexOf(randomCard)
-//     deck.splice(randomCardIdx, 1)
-//     renderInitialCards(randomCard)
-//   }
-// }
-
-// function renderInitialCards(randomCard){
-//   console.log(i)
-//  if (i===0){
-//   initialCardsEl[2].classList.remove('outline')
-//   initialCardsEl[2].classList.add(randomCard)
-//   playerCards.push(randomCard)
-//  }else if (i===1){
-//   initialCardsEl[0].classList.remove('outline')
-//   initialCardsEl[0].classList.add(randomCard)
-//   initialCardsEl[0].classList.add('back-red')
-//   dealerCards.push(randomCard)
-//  }else if (i===2){
-//   initialCardsEl[3].classList.remove('outline')
-//   initialCardsEl[3].classList.add(randomCard)
-//   playerCards.push(randomCard)
-//  }else if (i===3){
-//   initialCardsEl[1].classList.remove('outline')
-//   initialCardsEl[1].classList.add(randomCard)
-//   dealerCards.push(randomCard)
-//  }
-// }
-
 function hitButton(){
   dealBtn= false
   hitBtn= true
   dealPlayerCards()
   updatePlayingField()
-  // let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-  // playerCards.push(randomCard)
-  // discardPile.push(randomCard)
-  // let randomCardIdx= deck.indexOf(randomCard)
-  // deck.splice(randomCardIdx, 1)
-  // updatePlayingField()
-  // const playerHitCard= document.createElement('div')
-  // playerHitCard.setAttribute('class', `card large ${randomCard}`)
-  // playerCardsEl.appendChild(playerHitCard)
   playerTotal()
+  checkForBust()
   // playerHitCard.after(playerSecondCard)
 }
 function stayButton(){
-  initialCardsEl[0].classList.remove('back-red')
-  initialCardsEl[0].classList.add(dealerCards[0])
-  stayBtnEl.disabled= true
-  hitBtnEl.disabled= true
-  playerTotal()
-  dealerTotal()
+  hitBtn= false
+  stayBtn= true
+  updateBtns()
   checkDealerCards()
-  compareHands()
+  updatePlayingField()
 }
+
 
 function playerTotal(){
   playerCardCount=0
@@ -284,21 +252,36 @@ function playerTotal(){
   console.log(`player total: ${playerCardCount}`)
 }
 
+function checkForBust(){
+  if (playerCardCount>21){
+    //player busted
+    playerMoney
+    bet=0
+    hitBtn=false
+    cardsOutline= true
+    stayBtn= false
+    round= 1
+    renderInit()
+  }
+}
+
 function checkForBlackJack(number){
   if (number===21 && cardsArr.length===2){
-    stayBtnEl.disabled='true'
-    hitBtnEl.disabled='true'
+    blackJack= true
+    dealBtn= false
+    updateBtns()
     dealerTotal()
     if (!dealerCards[1].includes('A')){
       if (dealerCardCount!== 21){
         playerMoney+= (bet*(3/2))
         bet=0
+        updateMessageBoard()
         //update message congrats you got blackjack, it pays 3/2
       }else if (dealerCardCount=== 21){
         playerMoney+= bet
         bet=0
-        initialCardsEl[0].classList.remove('back-red')
-        initialCardsEl[0].classList.add(dealerCards[0])
+        updatePlayingField()
+        updateMessageBoard()
         //update message: sorry you pushed
       }
     }else if (dealerCards[1].includes('A')){
@@ -331,32 +314,16 @@ function dealerTotal(){
 function checkDealerCards(){
   dealerTotal()
   if (dealerCardCount<17){
-    //deal out cards function
     dealDealerCards()
   }else if (dealerCardCount>21){
-    //pay player
     playerMoney+= (bet*2)
     bet=0
+    updateMessageBoard()
   }else{
     compareHands()
   }
 }
 
-// function dealDealerCards(){
-//   let randomCard= deck[(Math.floor(Math.random()*deck.length))]
-//   dealerCards.push(randomCard)
-//   discardPile.push(randomCard)
-//   let randomCardIdx= deck.indexOf(randomCard)
-//   deck.splice(randomCardIdx, 1)
-//   renderDealerCards(randomCard)
-//   checkDealerCards()
-// }
-
-// function renderDealerCards(randomCard){
-//   const dealerXCard= document.createElement('div')
-//   dealerXCard.setAttribute('class', `card large ${randomCard}`)
-//   dealerCardsEl.appendChild(dealerXCard)
-// }
 
 function compareHands(){
   if (playerCardCount> dealerCardCount){
