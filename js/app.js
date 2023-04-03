@@ -40,7 +40,7 @@ function init(){
   playerMoney= 1000
   bet= 0
   deck = ["dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  step= 'cardsOutline'
+  step= 'card outline'
   blackJack= false
   round= 0
   renderInit()
@@ -87,7 +87,7 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
-  }else if (step==='stayBtn'){
+  }else if (step==='stayBtn' || step==='blackjack'){
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= true
@@ -96,23 +96,22 @@ function updateBtns(){
       chip.disabled= true
     })
     discardBtnEl.style.visibility= 'visible'
-  }else if (blackJack){
+  }else if (step==='bust'){
+    discardBtnEl.style.visibility= 'visible'
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
-    stayBtnEl.disabled=true
-    hitBtnEl.disabled=true
-  } else if (playerCardCount>=21){
-    discardBtnEl.style.visibility= 'visible'
+    stayBtnEl.disabled= true
+    hitBtnEl.disabled= true
   }
 }
 
 function updatePlayingField(){
   playerCardsEl.replaceChildren()
   dealerCardsEl.replaceChildren()
-  if (step==='cardsOutline'){
+  if (step==='card outline'){
     for (let i=0; i<2; i++){
       const playersCardsOutline= document.createElement('div')
       playersCardsOutline.setAttribute('class', `card large outline`)
@@ -137,7 +136,21 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (playerCardCount>=21 || step==='stayBtn'){
+  }if (playerCardCount===21 && playerCards.length>2){
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
+    let dealerfirstCard= document.createElement('div')
+    dealerfirstCard.setAttribute('class', `card large back-red`)
+    dealerCardsEl.appendChild(dealerfirstCard)
+    let dealerCurrentCards= document.createElement('div')
+    dealerCurrentCards.setAttribute('class', `card large ${dealerCards[1]}`)
+    dealerCardsEl.appendChild(dealerCurrentCards)
+    playerCards.forEach(function (cardName){
+      let playerCurrentCards= document.createElement('div')
+      playerCurrentCards.setAttribute('class', `card large ${cardName}`)
+      playerCardsEl.appendChild(playerCurrentCards)
+    })
+  }if (playerCardCount>21 || step==='stayBtn'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
@@ -258,7 +271,6 @@ function playerTotal(){
   if (playerCardCount<12 && cardsArr.includes("A")){
     playerCardCount+=10
   }
-  console.log(`player total: ${playerCardCount}`)
 }
 
 function checkForBust(){
@@ -266,17 +278,13 @@ function checkForBust(){
     //player busted
     playerMoney
     bet=0
-    hitBtn=false
-    cardsOutline= true
-    stayBtn= false
-    round= 1
+    step= 'bust'
     renderInit()
   }
 }
 
 function checkForBlackJack(number){
-  blackJack= true
-  dealBtn= false
+  step= 'blackjack'
   if (number===21 && cardsArr.length===2){
     updateBtns()
     dealerTotal()
