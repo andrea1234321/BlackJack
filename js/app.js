@@ -20,6 +20,7 @@ const hitBtnEl= document.getElementById('hit-button')
 const stayBtnEl= document.getElementById('stay-button')
 const discardBtnEl= document.getElementById('discard-button')
 const playerMessageEl= document.getElementById('player-message')
+const dealerMessageEl= document.getElementById('dealer-message')
 
 
 
@@ -60,10 +61,14 @@ function updateMessageBoard(){
     playerMessageEl.innerText= `Card total: ${playerCardCount}`
   }else if (playerCardCount>21){
     playerMessageEl.innerText= `Card total: ${playerCardCount}, sorry you busted`
-  }else if (blackJack){
+  }else if (step==='player blackjack'){
     playerMessageEl.innerText= `Card total: ${playerCardCount}, congratulations you got blackjack, it pays 3/2`
   }else if (playerCardCount===21 && dealerCardCount!==21){
     playerMessageEl.innerText= `Card total: ${playerCardCount}, aye 21, I would stay if i were you`
+  }else if (dealerCardCount===21 && dealerCards.length===2){
+    playerMessageEl.innerText= `Sorry, dealer got blackjack`
+  }if (step==='stayBtn'){
+    dealerMessageEl.innerText= `Dealer card total: ${dealerCardCount}`
   }
 }
 
@@ -87,7 +92,7 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
-  }else if (step==='stayBtn' || step==='blackjack'){
+  }else if (step==='stayBtn' || step==='player blackjack'){
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     stayBtnEl.disabled= true
@@ -96,7 +101,7 @@ function updateBtns(){
       chip.disabled= true
     })
     discardBtnEl.style.visibility= 'visible'
-  }else if (step==='bust'){
+  }else if (step==='bust' || step=== 'dealer blackjack'){
     discardBtnEl.style.visibility= 'visible'
     chipsEls.forEach(function(chip){
       chip.disabled= true
@@ -150,7 +155,7 @@ function updatePlayingField(){
       playerCurrentCards.setAttribute('class', `card large ${cardName}`)
       playerCardsEl.appendChild(playerCurrentCards)
     })
-  }if (playerCardCount>21 || step==='stayBtn'){
+  }if (playerCardCount>21 || step==='stayBtn' || step==='dealer blackjack' || step=== 'player blackjack'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     dealerCards.forEach(function (cardName){
@@ -250,6 +255,7 @@ function stayButton(){
   updateBtns()
   checkDealerCards()
   updatePlayingField()
+  updateMessageBoard()
 }
 
 
@@ -284,8 +290,8 @@ function checkForBust(){
 }
 
 function checkForBlackJack(number){
-  step= 'blackjack'
   if (number===21 && cardsArr.length===2){
+    step= 'player blackjack'
     updateBtns()
     dealerTotal()
     if (!dealerCards[1].includes('A')){
@@ -325,7 +331,6 @@ function dealerTotal(){
   if (dealerCardCount<12 && cardsArr.includes("A")){
     dealerCardCount+=10
   }
-  console.log(`dealer total: ${dealerCardCount}`)
 }
 
 function checkDealerCards(){
@@ -335,6 +340,9 @@ function checkDealerCards(){
   }else if (dealerCardCount>21){
     playerMoney+= (bet*2)
     bet=0
+    updateMessageBoard()
+  }else if (dealerCardCount===21){
+    updatePlayingField()
     updateMessageBoard()
   }else{
     compareHands()
