@@ -8,6 +8,7 @@ body{
 h1{
   font-family: 'Bungee Outline', cursive;
   font-size: 80px;
+  margin: 0;
   /* color: #fff;
   text-shadow:
     0 0 7px #fff,
@@ -19,20 +20,46 @@ h1{
     0 0 102px rgb(244, 248, 0),
     0 0 151px rgb(244, 248, 0); */
 }
-.dealer{
+
+.messages{
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+}
+
+#player-message{
+  font-size: 18px;
+  padding: 0;
+  color: whitesmoke;
+}
+
+.card-container{
+  display: flex;
+  margin-top: 30px;
+}
+.card-deck{
+  display: flex;
+  align-items: center;
+  margin-left: 20%;
 }
 #deck{
-  margin-right: 100px;
+  cursor: default;
 }
-.dealer-card-container{
-  justify-content: ;
-}
-.player{
+.delt-cards{
   display: flex;
-  justify-content: center;
-  margin-top: 70px;
+  flex-direction: column;
+  width: 100%;
+}
+.delt-cards>div, .delt-cards>p{
+  margin-left: 15%;
+  cursor: default;
+}
+
+.delt-cards>p{
+  margin-left: 20%;
+}
+.player-card-container{
+  margin-top: 40px;
 }
 .chips{
   display: flex;
@@ -43,7 +70,7 @@ div.chips> button{
   height: 75px;
   width: 75px;
   border-radius: 50%;
-  color: rgb(225, 224, 224);
+  color: whitesmoke;
   font-size: 20px;
   border: dashed;
   box-shadow: 1px 5px 5px rgb(0, 0, 0);
@@ -75,7 +102,23 @@ div.chips> button:active{
   box-shadow: none;
 }
 
-#deal-button{
-  background-color: white;
-  color: black;
+.buttons{
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.buttons> button{
+  padding: 10px;
+  border-radius: 15px;
+  border: 2px solid black;
+  margin: 10px
+}
+#deal-button, #hit-button{
+  background-color: rgb(114, 222, 114);
+}
+
+#reset-bet-button, #stay-button, #discard-button{
+  background-color: rgb(187, 36, 36);
+  color: whitesmoke
 }
