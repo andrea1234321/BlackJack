@@ -191,8 +191,8 @@ function updatePlayingField(){
 } 
 
 function handleClick(evt){
-  step= 'chip'
   if (playerMoney>=(parseInt(evt.target.id.slice(4,7)))){
+    step= 'chip'
     playerMoney-=(parseInt(evt.target.id.slice(4,7)))
     bet+=(parseInt(evt.target.id.slice(4,7)))
   }
