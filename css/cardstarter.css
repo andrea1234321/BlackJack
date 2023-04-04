@@ -319,6 +319,15 @@
 .card.back-red {
   background-image: url("../images/backs/red.svg"); }
 
+.card.back-vegas{
+  background-image: url("../images/backs/Vegas.jpeg");
+  background-size: cover;
+}
+.card.back-vintage-vegas{
+  background-image: url("../images/backs/VintageVegas.jpeg");
+  background-size: cover;
+  border: 2px solid black;
+}
 /* Re-orients the cards for different directions. While
    they are symmetric, it's still important to orient
    them correctly in case text or other symbols are

@@ -176,7 +176,7 @@ function updatePlayingField(){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
-    dealerfirstCard.setAttribute('class', `card large back-red`)
+    dealerfirstCard.setAttribute('class', `card large back-vintage-vegas`)
     dealerCardsEl.appendChild(dealerfirstCard)
     let dealerCurrentCards= document.createElement('div')
     dealerCurrentCards.setAttribute('class', `card large ${dealerCards[1]}`)

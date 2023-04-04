@@ -1,26 +1,39 @@
 body{
-  background-color: rgb(132, 108, 62);
+  background-color: rgb(78, 70, 55);
   font-family: 'Ubuntu Condensed', sans-serif;
   font-size: 20px;
 }
 .header{
   display: flex;
   justify-content: center;
+
 }
 h1{
   font-family: 'Bungee Outline', sans-serif;
   font-size: 80px;
   margin: 0;
-  /* color: #fff;
-  text-shadow:
-    0 0 7px #fff,
-    0 0 10px #fff,
-    0 0 21px #fff,
-    0 0 42px rgb(244, 248, 0),
-    0 0 82px rgb(244, 248, 0),
-    0 0 92px rgb(244, 248, 0),
-    0 0 102px rgb(244, 248, 0),
-    0 0 151px rgb(244, 248, 0); */
+  color: #7f5b28;
+  /* text-shadow:
+    0 0 7px #ffffff,
+    0 0 10px #ffffff,
+    0 0 21px #fffffe,
+    0 0 42px rgb(199, 165, 11),
+    0 0 82px rgb(199, 165, 11),
+    0 0 92px rgb(199, 165, 11),
+    0 0 102px rgb(199, 165, 11),
+    0 0 151px rgb(199, 165, 11); */
+  border: 1px solid;
+  border-radius: 30px;
+  /* box-shadow:
+    0 0 7px #ffffff,
+    0 0 10px #ffffff,
+    0 0 21px #fffffe,
+    0 0 42px rgb(199, 165, 11),
+    0 0 82px rgb(199, 165, 11),
+    0 0 92px rgb(199, 165, 11),
+    0 0 102px rgb(199, 165, 11),
+    0 0 151px rgb(199, 165, 11); */
+  padding: 10px 70px;
 }
 .message-container{
   display: flex;
@@ -28,7 +41,6 @@ h1{
   margin-top: 30px;
 }
 .messages{
-  background-color: rgba(114, 70, 16, 0.4);
   margin-left: 10%;
 }
 
@@ -37,14 +49,21 @@ h1{
   padding: 5px 40px;
 }
 .money{
-  background-color: rgba(114, 70, 16, 0.4);
-  border-radius: 20px;
-  padding: 20px;
-  margin-left: 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(172, 18, 15, 0.6);
+  color: rgb(185, 157, 92);
+  height: 100px;
+  width: 150px;
+  border-top-left-radius: 40%;
+  border-bottom-right-radius: 60px;
+  padding: 15px;
+  margin-left: 10%;
 }
 .card-container{
   display: flex;
-  margin-top: 30px;
 }
 .card-deck{
   display: flex;
@@ -68,7 +87,7 @@ h1{
   margin-left: 20%;
 }
 .player-card-container{
-  margin-top: 40px;
+  margin-top: 10px;
 }
 .all-chips{
   display: flex;
@@ -89,20 +108,20 @@ div.chips> button, div.blackjack-chip> button{
   margin: 5px;
 }
 #chip2_5{
-  background-color: rgb(103, 42, 117);
+  background-color: rgb(149, 113, 6);
   margin: 5px 10px;
 }
 #chip5{
-  background-color: rgb(204, 34, 34);
+  background-color: rgb(164, 9, 9);
 }
 #chip10{
-  background-color: rgb(13, 13, 193);
+  background-color: rgb(42, 42, 122);
 }
 #chip25{
-  background-color: rgb(51, 117, 51);
+  background-color: rgb(25, 93, 53);
 }
 #chip100{
-  background-color: black;
+  background-color: rgb(22, 21, 21);
 }
 button{
   cursor: pointer;
@@ -139,4 +158,14 @@ div.chips> button:active, div.blackjack-chip> button:active{
 .buttons> button:active{
   transform: scale(0.98);
   box-shadow: none;
+}
+.reset-game-container{
+  display: flex;
+  justify-content: center;
+}
+#reset-game-button{
+  padding: 10px;
+  background-color: rgb(13, 116, 150);
+  border-radius: 15px;
+  border: 2px solid rgb(16, 27, 125);
 }
