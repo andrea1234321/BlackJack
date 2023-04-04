@@ -26,6 +26,7 @@ const discardBtnEl= document.getElementById('discard-button')
 const playerMessageEl= document.getElementById('player-message')
 const playerCardCounterEl= document.getElementById('player-card-counter')
 const dealerCardCounterEl= document.getElementById('dealer-card-counter')
+const resetGameBtnEl= document.getElementById('reset-game-button')
 
 
 //event-listeners-------------------------------------------------------
@@ -40,6 +41,7 @@ resetBetBtnEl.addEventListener('click', resetBetHandleClick)
 hitBtnEl.addEventListener('click', hitButton)
 stayBtnEl.addEventListener('click', stayButton)
 discardBtnEl.addEventListener('click', discardBtnHandleClick)
+resetGameBtnEl.addEventListener('click', resetGame)
 
 
 //functions----------------------------------------------------------
@@ -103,6 +105,7 @@ function updateMessageBoard(){
 }
 
 function updateBtns(){
+  resetGameBtnEl.style.visibility= 'hidden'
   if (step==='card outline' || step==='reset'){
     dealBtnEl.style.visibility= 'hidden'
     resetBetBtnEl.style.visibility= 'hidden'
@@ -111,6 +114,7 @@ function updateBtns(){
     discardBtnEl.style.visibility= 'hidden'
     // blackjackChipEl.visibility='hidden'
     chipsEls.forEach(function(chip){
+      chip.style.visibility= 'visible'
       chip.disabled= false
     })
     blackjackChipEl.disabled= false
@@ -136,6 +140,7 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
+    resetGameBtnEl.style.visibility= 'visible'
   }else{
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
@@ -401,4 +406,8 @@ function discardBtnHandleClick(){
   playerCards=[]
   dealerCards=[]
   render()
+}
+
+function resetGame(){
+  init()
 }

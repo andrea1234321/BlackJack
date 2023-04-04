@@ -28,14 +28,13 @@ h1{
   margin-top: 30px;
 }
 .messages{
-  background-color: blue;
+  background-color: rgba(114, 70, 16, 0.4);
   margin-left: 10%;
 }
 
 #player-message{
   font-size: 18px;
-  padding: 0;
-  color: whitesmoke;
+  padding: 5px 40px;
 }
 .money{
   background-color: rgba(114, 70, 16, 0.4);
