@@ -1,6 +1,6 @@
 //const---------------------------------------------------------------
 const chipVals= [5, 10, 25, 100]
-
+const blackjackChipVal= [2.5]
 
 //variables-----------------------------------------------------------
 let playerMoney, bet, dealerCardCount, playerCardCount
@@ -12,6 +12,7 @@ let discardPile= []
 
 //cached elements------------------------------------------------------
 const chipsEls= document.querySelectorAll(".chips>button")
+const blackjackChipEl= document.getElementById('chip2_5')
 const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
@@ -30,9 +31,10 @@ const dealerCardCounterEl= document.getElementById('dealer-card-counter')
 //event-listeners-------------------------------------------------------
 chipsEls.forEach(function(chip, idx){
   chip.innerText=`${chipVals[idx]}`
-  chip.addEventListener('click', handleClick)
+  chip.addEventListener('click', chipHandleClick)
 })
 
+blackjackChipEl.addEventListener('click', blackjackChipHandleClick)
 dealBtnEl.addEventListener('click', dealBtnHandleClick)
 resetBetBtnEl.addEventListener('click', resetBetHandleClick)
 hitBtnEl.addEventListener('click', hitButton)
@@ -107,9 +109,11 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
+    // blackjackChipEl.visibility='hidden'
     chipsEls.forEach(function(chip){
       chip.disabled= false
     })
+    blackjackChipEl.disabled= false
   }else if (step==='chip'){
     dealBtnEl.style.visibility= 'visible'
     resetBetBtnEl.style.visibility= 'visible'
@@ -117,6 +121,7 @@ function updateBtns(){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
+    blackjackChipEl.disabled= true
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     dealBtnEl.style.visibility= 'hidden'
@@ -127,6 +132,7 @@ function updateBtns(){
     chipsEls.forEach(function(chip){
       chip.style.visibility= 'hidden'
     })
+    blackjackChipEl.style.visibility='hidden'
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
@@ -138,6 +144,7 @@ function updateBtns(){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
+    blackjackChipEl.disabled= true
     discardBtnEl.style.visibility= 'visible'
     dealBtnEl.style.visibility= 'hidden'
     resetBetBtnEl.style.visibility= 'hidden'
@@ -190,11 +197,20 @@ function updatePlayingField(){
   }
 } 
 
-function handleClick(evt){
+function chipHandleClick(evt){
   if (playerMoney>=(parseInt(evt.target.id.slice(4,7)))){
     step= 'chip'
     playerMoney-=(parseInt(evt.target.id.slice(4,7)))
     bet+=(parseInt(evt.target.id.slice(4,7)))
+  }
+  render()
+}
+
+function blackjackChipHandleClick(evt){
+  if (playerMoney>=(2.5)){
+    step= 'chip'
+    playerMoney-= 2.5
+    bet+= 2.5
   }
   render()
 }

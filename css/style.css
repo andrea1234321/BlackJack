@@ -61,12 +61,15 @@ h1{
 .player-card-container{
   margin-top: 40px;
 }
-.chips{
+.all-chips{
   display: flex;
   justify-content: center;
+}
+.chips, .blackjack-chip{
   margin-top: 30px;
 }
-div.chips> button{
+
+div.chips> button, div.blackjack-chip> button{
   height: 75px;
   width: 75px;
   border-radius: 50%;
@@ -76,7 +79,10 @@ div.chips> button{
   box-shadow: 1px 5px 5px rgb(0, 0, 0);
   margin: 5px;
 }
-
+#chip2_5{
+  background-color: rgb(103, 42, 117);
+  margin: 5px 10px;
+}
 #chip5{
   background-color: rgb(204, 34, 34);
 }
@@ -93,11 +99,11 @@ button{
   cursor: pointer;
 }
 
-div.chips> button:hover{
+div.chips> button:hover, div.blackjack-chip> button:hover{
   opacity: 0.8;
   box-shadow: 1px 3px 5px black;
 }
-div.chips> button:active{
+div.chips> button:active, div.blackjack-chip> button:active{
   transform: scale(0.98);
   box-shadow: none;
 }
