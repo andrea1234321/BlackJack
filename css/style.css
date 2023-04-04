@@ -1,12 +1,14 @@
 body{
-  background-color: rgb(62, 132, 62);
+  background-color: rgb(132, 108, 62);
+  font-family: 'Ubuntu Condensed', sans-serif;
+  font-size: 20px;
 }
 .header{
   display: flex;
   justify-content: center;
 }
 h1{
-  font-family: 'Bungee Outline', cursive;
+  font-family: 'Bungee Outline', sans-serif;
   font-size: 80px;
   margin: 0;
   /* color: #fff;
@@ -20,11 +22,14 @@ h1{
     0 0 102px rgb(244, 248, 0),
     0 0 151px rgb(244, 248, 0); */
 }
-
-.messages{
+.message-container{
   display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  align-items: center;
+  margin-top: 30px;
+}
+.messages{
+  background-color: blue;
+  margin-left: 10%;
 }
 
 #player-message{
@@ -32,7 +37,12 @@ h1{
   padding: 0;
   color: whitesmoke;
 }
-
+.money{
+  background-color: rgba(114, 70, 16, 0.4);
+  border-radius: 20px;
+  padding: 20px;
+  margin-left: 15%;
+}
 .card-container{
   display: flex;
   margin-top: 30px;
@@ -117,14 +127,17 @@ div.chips> button:active, div.blackjack-chip> button:active{
 .buttons> button{
   padding: 10px;
   border-radius: 15px;
-  border: 2px solid black;
-  margin: 10px
-}
-#deal-button, #hit-button{
-  background-color: rgb(114, 222, 114);
+  border: 2px solid rgb(94, 63, 5);
+  margin: 10px;
+  background-color: rgb(185, 157, 92);
+  box-shadow: 1px 3px 5px rgb(99, 67, 13);
 }
 
-#reset-bet-button, #stay-button, #discard-button{
-  background-color: rgb(187, 36, 36);
-  color: whitesmoke
+.buttons> button:hover{
+  opacity: 0.8;
+  box-shadow: 1px 3px 5px black;
+}
+.buttons> button:active{
+  transform: scale(0.98);
+  box-shadow: none;
 }

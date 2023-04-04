@@ -4,21 +4,37 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>BlackJack</title>
   <link rel="stylesheet" href="./css/cardstarter.css">
   <link rel="stylesheet" href="./css/cardstarter.min.css">
   <link rel="stylesheet" href="./css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Train+One&family=Zen+Tokyo+Zoo&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    id="favicon"
+    rel="icon"
+    href="./images/favicon/blackjack_favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Ubuntu+Condensed&display=swap" rel="stylesheet">
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
   <script defer src="./js/app.js"></script>
 </head>
 <body>
   <div class="header">
     <h1>BlackJack</h1>
   </div>
-  <div class="messages">
-    <p id="player-message"></p>
+  <div class="message-container">
+    <div class="money">
+      <p id="player-money"></p>
+      <p id="current-bet"></p>
+    </div>
+    <div class="messages">
+      <p id="player-message"></p>
+    </div>
   </div>
   <div class="card-container">
     <div class="card-deck">
@@ -48,10 +64,6 @@
     <button id="hit-button">Hit</button>
     <button id="stay-button">Stay</button>
     <button id="discard-button">Discard</button>
-  </div>
-  <div class="money">
-    <p id="player-money"></p>
-    <p id="current-bet"></p>
   </div>
 </body>
 </html>
