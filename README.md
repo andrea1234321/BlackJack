@@ -1,14 +1,28 @@
-# BlackJack
 ![GameBoard](./assets/blackjack_board.png)
 ![GameBoardWhilePlaying](./assets/Gameboard_during.png)
 
+# BlackJack
 Click [here](https://andrea-blackjack.netlify.app) to play
+
+## To play
+Click on a chip to place your bet, follow the buttons accordingly!
+
+## Rules
+Playing BlackJack is fairly simple, just place a bet and hope you get 21! 
+
+The card values are as follows: 
+* Ace= 1/11
+* Face cards= 10
+* All other cards equal their respective number
+
+If you don't get 21 or anything near it on your first draw, then you might want to consider hitting. However, if you hit and your card count becomes greater than 21, you bust, meaning the dealer automatically wins and takes your money. If you stay, the dealer must draw until he gets a card count of at least 17. If the dealer busts, then you automatically win and get paid out 2x your original bet. If neither of you bust, then whoever has a higher card count will win the round. If you're feeling extra lucky you can double down on your bet (meaning you double your original bet) by clicking the double button. Be careful though, doubling down only allows you to get delt one other card, however if you win at the end of the round you get paid out 2x the doubled bet!
 
 ## Motivation
 I learned to play blackjack while I was a caregiver. The man I took care of loved to go to the casinos to play blackjack, but as he was quadriplegic he always needed someone to take him and play with/for him. He ended up teaching me how to play the game and the basic strategy behind betting and when to hit, stay, double, etc. I fell in love with the game too, so we often spent our time going to nearby casinos or going on casino cruises. As I have been learning to code, I wanted to build my own blackjack game, so that others too could find the joy in playing. 
 
 ## Attributions 
 * Card Deck Library: [Github](https://github.com/ManliestBen/css-card-template.git)- Manliest Ben
+* Animation Library: [Animate.css](https://animate.style/)
 * Card Back Image: [Pinterest](https://www.pinterest.com/pin/673217844278686778/)
 * Favicon Icon [Flaticon](https://www.flaticon.com/free-icons/playing-card)
 
