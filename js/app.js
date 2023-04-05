@@ -20,6 +20,7 @@ const resetBetBtnEl= document.getElementById('reset-bet-button')
 const initialCardsEl= document.querySelectorAll('#initial-cards')
 const dealerCardsEl= document.querySelector('.dealer-card-container')
 const playerCardsEl= document.querySelector('.player-card-container')
+const doubleBtnEl= document.getElementById('double-button')
 const hitBtnEl= document.getElementById('hit-button')
 const stayBtnEl= document.getElementById('stay-button')
 const discardBtnEl= document.getElementById('discard-button')
@@ -38,6 +39,7 @@ chipsEls.forEach(function(chip, idx){
 blackjackChipEl.addEventListener('click', blackjackChipHandleClick)
 dealBtnEl.addEventListener('click', dealBtnHandleClick)
 resetBetBtnEl.addEventListener('click', resetBetHandleClick)
+doubleBtnEl.addEventListener('click', doubleDown)
 hitBtnEl.addEventListener('click', hitButton)
 stayBtnEl.addEventListener('click', stayButton)
 discardBtnEl.addEventListener('click', discardBtnHandleClick)
@@ -68,7 +70,7 @@ function updateMessageBoard(){
   playerMessageEl.innerText= ''
   if (step==='deal' || step==='hit'){
     playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-  }else if (step==='stay'){
+  }else if (step==='stay' || step=== 'double'){
     cardCounter()
   }else if (step==='bust'){
     cardCounter()
@@ -114,6 +116,7 @@ function updateBtns(){
   if (step==='card outline' || step==='reset'){
     dealBtnEl.style.visibility= 'hidden'
     resetBetBtnEl.style.visibility= 'hidden'
+    doubleBtnEl.style.visibility= 'hidden'
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
@@ -126,29 +129,58 @@ function updateBtns(){
   }else if (step==='chip'){
     dealBtnEl.style.visibility= 'visible'
     resetBetBtnEl.style.visibility= 'visible'
-  }else if (step==='deal' || step==='hit'){
+  }else if (step==='deal'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
+    doubleBtnEl.style.visibility= 'visible'
+    stayBtnEl.style.visibility= 'visible'
+    hitBtnEl.style.visibility= 'visible'
+    dealBtnEl.style.visibility= 'hidden'
+    resetBetBtnEl.style.visibility= 'hidden'
+    doubleBtnEl.disabled= false 
+    stayBtnEl.disabled= false
+    hitBtnEl.disabled= false
+  }else if (step==='hit'){
+    chipsEls.forEach(function(chip){
+      chip.disabled= true
+    })
+    blackjackChipEl.disabled= true
+    doubleBtnEl.disabled= true
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
     dealBtnEl.style.visibility= 'hidden'
     resetBetBtnEl.style.visibility= 'hidden'
     stayBtnEl.disabled= false
     hitBtnEl.disabled= false
+  }else if (step=== 'double'){
+    dealBtnEl.style.visibility= 'hidden'
+    resetBetBtnEl.style.visibility= 'hidden'
+    hitBtnEl.disabled= true
+    stayBtnEl.disabled= true
+    chipsEls.forEach(function(chip){
+      chip.disabled= true
+    })
+    blackjackChipEl.disabled= true
+    resetBetBtnEl.style.visibility= 'hidden'
+    discardBtnEl.style.visibility= 'visible'
+    doubleBtnEl.disabled= true
   }else if (step=== 'no money'){
     chipsEls.forEach(function(chip){
       chip.style.visibility= 'hidden'
     })
     blackjackChipEl.style.visibility='hidden'
+    doubleBtnEl.style.visibility= 'hidden'
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
     resetGameBtnEl.style.visibility= 'visible'
   }else{
+    doubleBtnEl.style.visibility= 'visible'
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
+    doubleBtnEl.disabled= true
     stayBtnEl.disabled= true
     hitBtnEl.disabled= true
     chipsEls.forEach(function(chip){
@@ -278,6 +310,14 @@ function dealDealerCards(){
   checkDealerCards()
 }
 
+function doubleDown(){
+  step= 'double'
+  playerMoney-= bet
+  bet+= bet
+  dealPlayerCards()
+  checkForBust()
+  render()
+}
 
 function hitButton(){
   step= 'hit'
