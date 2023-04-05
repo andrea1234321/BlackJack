@@ -3,7 +3,7 @@
   box-sizing: border-box;
   display: inline-block;
   margin: 5px 5px 50px 5px;
-  cursor: pointer;
+  cursor: default;
   /* Set the card's dimensions, and size it relative to
      it's font size. */
   font-size: inherit;
@@ -39,7 +39,7 @@
   .card.outline {
     background-image: none;
     background-color: rgba(195, 195, 195, 0.5);
-    border: 0.15em dashed #daa520; }
+    border: 0.15em dashed rgb(197, 178, 149); }
 
 .card.diamonds.A,
 .card.dA,

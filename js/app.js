@@ -69,40 +69,45 @@ function updateMessageBoard(){
   if (step==='deal' || step==='hit'){
     playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
   }else if (step==='stay'){
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
+    cardCounter()
   }else if (step==='bust'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `Sorry you busted!`
   }else if (step=== 'player blackjack'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `Congratulations you got blackjack, it pays 3/2`
   }else if (step==='dealer blackjack'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `I'm sorry dealer got blackjack`
   }else if (step=== 'blackjack push'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `Yay you got blackjack, but unfortunately so did the dealer, you pushed`
   }else if (step=== 'player wins'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `Yay you win! you get 2X your bet!`
   }else if (step=== 'push'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+    cardCounter()
     playerMessageEl.innerText= `You pushed the dealer!`
   }else if (step=== 'dealer wins'){
-    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
-    dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
-    playerMessageEl.innerText= `Sorry dealers hand equals ${dealerCardCount} and yours is only ${playerCardCount}, you lose your bet`
+    cardCounter()
+    playerMessageEl.innerText= `Sorry dealer wins this round`
   }else if (step==='no money'){
-    playerMessageEl.innerText= `I'm sorry it looks like you have ran out of money, you should go to the ATM to get some more`
+    playerMessageEl.innerText= `It looks like you have ran out of money! If you wanna keep playing just go to the ATM and cash out some more money!`
   }
 }
+
+function cardCounter(){
+  playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
+  dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+}
+// function cardCounter(){
+//   playerCardCounterEl.innerText= ''
+//   dealerCardCounterEl.innerText= ''
+//   if (step!== 'card outline' || step!== 'chip' || step!== 'deal' || step!== 'hit'){
+//     dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
+//     playerCardCounterEl.innerText= `Player card total: ${playerCardCount}`
+//   }
+// }
 
 function updateBtns(){
   resetGameBtnEl.style.visibility= 'hidden'
@@ -112,12 +117,12 @@ function updateBtns(){
     hitBtnEl.style.visibility= 'hidden'
     stayBtnEl.style.visibility= 'hidden'
     discardBtnEl.style.visibility= 'hidden'
-    // blackjackChipEl.visibility='hidden'
     chipsEls.forEach(function(chip){
       chip.style.visibility= 'visible'
       chip.disabled= false
     })
     blackjackChipEl.disabled= false
+    blackjackChipEl.style.visibility= 'visible'
   }else if (step==='chip'){
     dealBtnEl.style.visibility= 'visible'
     resetBetBtnEl.style.visibility= 'visible'
@@ -344,9 +349,7 @@ function checkForBlackJack(){
   } else if (playerCardCount===21 && dealerCardCount===21){
     step= 'blackjack push'
   }
-  updateBtns()
-  updatePlayingField()
-  updateMessageBoard()
+ render()
 }
 
 function checkDealerCards(){
