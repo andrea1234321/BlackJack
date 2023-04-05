@@ -114,88 +114,6 @@ function cardCounter(){
 //   }
 // }
 
-// function updateBtns(){
-//   resetGameBtnEl.style.visibility= 'hidden'
-//   if (step==='card outline' || step==='reset'){
-//     dealBtnEl.style.visibility= 'hidden'
-//     resetBetBtnEl.style.visibility= 'hidden'
-//     doubleBtnEl.style.visibility= 'hidden'
-//     hitBtnEl.style.visibility= 'hidden'
-//     stayBtnEl.style.visibility= 'hidden'
-//     discardBtnEl.style.visibility= 'hidden'
-//     chipsEls.forEach(function(chip){
-//       chip.style.visibility= 'visible'
-//       chip.disabled= false
-//     })
-//     blackjackChipEl.disabled= false
-//     blackjackChipEl.style.visibility= 'visible'
-//   }else if (step==='chip'){
-//     dealBtnEl.style.visibility= 'visible'
-//     resetBetBtnEl.style.visibility= 'visible'
-//   }else if (step==='deal'){
-//     chipsEls.forEach(function(chip){
-//       chip.disabled= true
-//     })
-//     blackjackChipEl.disabled= true
-//     doubleBtnEl.style.visibility= 'visible'
-//     stayBtnEl.style.visibility= 'visible'
-//     hitBtnEl.style.visibility= 'visible'
-//     dealBtnEl.style.visibility= 'hidden'
-//     resetBetBtnEl.style.visibility= 'hidden'
-//     doubleBtnEl.disabled= false 
-//     stayBtnEl.disabled= false
-//     hitBtnEl.disabled= false
-//   }else if (step==='hit'){
-//     chipsEls.forEach(function(chip){
-//       chip.disabled= true
-//     })
-//     blackjackChipEl.disabled= true
-//     doubleBtnEl.disabled= true
-//     stayBtnEl.style.visibility= 'visible'
-//     hitBtnEl.style.visibility= 'visible'
-//     dealBtnEl.style.visibility= 'hidden'
-//     resetBetBtnEl.style.visibility= 'hidden'
-//     stayBtnEl.disabled= false
-//     hitBtnEl.disabled= false
-//   }else if (step=== 'double'){
-//     dealBtnEl.style.visibility= 'hidden'
-//     resetBetBtnEl.style.visibility= 'hidden'
-//     hitBtnEl.disabled= true
-//     stayBtnEl.disabled= true
-//     chipsEls.forEach(function(chip){
-//       chip.disabled= true
-//     })
-//     blackjackChipEl.disabled= true
-//     resetBetBtnEl.style.visibility= 'hidden'
-//     discardBtnEl.style.visibility= 'visible'
-//     doubleBtnEl.disabled= true
-//   }else if (step=== 'no money'){
-//     chipsEls.forEach(function(chip){
-//       chip.style.visibility= 'hidden'
-//     })
-//     blackjackChipEl.style.visibility='hidden'
-//     doubleBtnEl.style.visibility= 'hidden'
-//     hitBtnEl.style.visibility= 'hidden'
-//     stayBtnEl.style.visibility= 'hidden'
-//     discardBtnEl.style.visibility= 'hidden'
-//     resetGameBtnEl.style.visibility= 'visible'
-//   }else{
-//     doubleBtnEl.style.visibility= 'visible'
-//     stayBtnEl.style.visibility= 'visible'
-//     hitBtnEl.style.visibility= 'visible'
-//     doubleBtnEl.disabled= true
-//     stayBtnEl.disabled= true
-//     hitBtnEl.disabled= true
-//     chipsEls.forEach(function(chip){
-//       chip.disabled= true
-//     })
-//     blackjackChipEl.disabled= true
-//     discardBtnEl.style.visibility= 'visible'
-//     dealBtnEl.style.visibility= 'hidden'
-//     resetBetBtnEl.style.visibility= 'hidden'
-//   }
-// }
-
 function updateBtns(){
   resetGameBtnEl.style.visibility= 'hidden'
   dealBtnEl.style.visibility= 'hidden'
@@ -250,8 +168,6 @@ function updateBtns(){
     discardBtnEl.style.visibility= 'visible'
   }
 }
-
-
 
 
 function updatePlayingField(){
@@ -378,7 +294,9 @@ function doubleDown(){
     bet+= bet
     dealPlayerCards()
     checkForBust()
-    checkDealerCards()
+    if(step!== 'bust'){
+      checkDealerCards()
+    }
     render()
   }else{
     step= 'no double'
@@ -392,6 +310,7 @@ function hitButton(){
   checkForBust()
   render()
 }
+
 function stayButton(){
   step= 'stay'
   checkDealerCards()
