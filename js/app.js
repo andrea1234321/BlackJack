@@ -204,9 +204,6 @@ function updateBtns(){
   hitBtnEl.style.visibility= 'hidden'
   stayBtnEl.style.visibility= 'hidden'
   discardBtnEl.style.visibility= 'hidden'
-  doubleBtnEl.disabled= false 
-  stayBtnEl.disabled= false
-  hitBtnEl.disabled= false
   chipsEls.forEach(function(chip){
     chip.style.visibility= 'visible'
     chip.disabled= false
@@ -231,19 +228,14 @@ function updateBtns(){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
-    doubleBtnEl.disabled= true
-    doubleBtnEl.style.visibility= 'visible'
     stayBtnEl.style.visibility= 'visible'
     hitBtnEl.style.visibility= 'visible'
   }else if (step=== 'double'){
-    hitBtnEl.disabled= true
-    stayBtnEl.disabled= true
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
     discardBtnEl.style.visibility= 'visible'
-    doubleBtnEl.disabled= true
   }else if (step=== 'no money'){
     chipsEls.forEach(function(chip){
       chip.style.visibility= 'hidden'
@@ -251,12 +243,6 @@ function updateBtns(){
     blackjackChipEl.style.visibility='hidden'
     resetGameBtnEl.style.visibility= 'visible'
   }else{
-    doubleBtnEl.style.visibility= 'visible'
-    stayBtnEl.style.visibility= 'visible'
-    hitBtnEl.style.visibility= 'visible'
-    doubleBtnEl.disabled= true
-    stayBtnEl.disabled= true
-    hitBtnEl.disabled= true
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
