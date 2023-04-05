@@ -214,24 +214,43 @@ function updatePlayingField(){
     let dealerCurrentCards= document.createElement('div')
     dealerCurrentCards.setAttribute('class', `card large ${dealerCards[1]}`)
     dealerCardsEl.appendChild(dealerCurrentCards)
-    playerCards.forEach(function (cardName){
-      let playerCurrentCards= document.createElement('div')
-      playerCurrentCards.setAttribute('class', `card large ${cardName}`)
-      playerCardsEl.appendChild(playerCurrentCards)
-    })
+    for (let i=0; i<2; i++){
+      let playersInitialCards= document.createElement('div')
+      playersInitialCards.setAttribute('class', `card large ${playerCards[i]}`)
+      playerCardsEl.appendChild(playersInitialCards)
+    }
+    for (let i=2; i<playerCards.length; i++){
+      let playerHitCards= document.createElement('div')
+      playerHitCards.setAttribute('class', `card large ${playerCards[i]} animate__animated animate__fadeInRightBig`)
+      playerHitCards.setAttribute('id', `player-${i}-card`)
+      playerCardsEl.appendChild(playerHitCards)
+    }
   }else{
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
-    dealerCards.forEach(function (cardName){
-      let dealerCurrentCards= document.createElement('div')
-      dealerCurrentCards.setAttribute('class', `card large ${cardName}`)
-      dealerCardsEl.appendChild(dealerCurrentCards)
-    })
-    playerCards.forEach(function (cardName){
-      let playerCurrentCards= document.createElement('div')
-      playerCurrentCards.setAttribute('class', `card large ${cardName}`)
-      playerCardsEl.appendChild(playerCurrentCards)
-    })
+    let dealerfirstCard= document.createElement('div')
+    dealerfirstCard.setAttribute('class', `card large ${dealerCards[0]} animate__animated animate__flipInY`)
+    dealerCardsEl.appendChild(dealerfirstCard)
+    let dealerSecondCard= document.createElement('div')
+    dealerSecondCard.setAttribute('class', `card large ${dealerCards[1]}`)
+    dealerCardsEl.appendChild(dealerSecondCard)
+    for (let i=2; i<dealerCards.length; i++){
+      let dealerAllCards= document.createElement('div')
+      dealerAllCards.setAttribute('class', `card large ${dealerCards[i]} animate__animated animate__fadeInRightBig`)
+      dealerAllCards.setAttribute('id', `dealer-${i}-card`)
+      dealerCardsEl.appendChild(dealerAllCards)
+    }
+    for (let i=0; i<2; i++){
+      let playersInitialCards= document.createElement('div')
+      playersInitialCards.setAttribute('class', `card large ${playerCards[i]}`)
+      playerCardsEl.appendChild(playersInitialCards)
+    }
+    for (let i=2; i<playerCards.length; i++){
+      let playerHitCards= document.createElement('div')
+      playerHitCards.setAttribute('class', `card large ${playerCards[i]} animate__animated animate__fadeInRightBig`)
+      playerHitCards.setAttribute('id', `player-${i}-card`)
+      playerCardsEl.appendChild(playerHitCards)
+    }
   }
 } 
 
@@ -304,6 +323,7 @@ function dealDealerCards(){
   deck.splice(randomCardIdx, 1)
   checkDealerCards()
 }
+
 
 function doubleDown(){
   if (playerMoney>=bet){

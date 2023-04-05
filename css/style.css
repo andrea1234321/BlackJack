@@ -192,30 +192,51 @@ div.chips> button:active, div.blackjack-chip> button:active{
   box-shadow: none;
 } 
 
-#player-first-card{
+#player-first-card, #player-2-card{
   display: inline-block;
-  /* animation: slideInRight; */
   animation-duration: 0.5s;
   animation-delay: 0s;
 }
 
 #dealer-first-card{
   display: inline-block;
-  /* animation: slideInRight; */
   animation-duration: 0.5s;
   animation-delay: 0.3s;
 }
 
 #player-second-card{
   display: inline-block;
-  /* animation: slideInRight; */
   animation-duration: 0.5s;
   animation-delay: 0.6s;
 }
 
 #dealer-second-card{
   display: inline-block;
-  /* animation: slideInRight; */
   animation-duration: 0.5s;
   animation-delay: 0.9s;
+}
+#dealer-2-card, #player-3-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 0.3s;
+}
+#dealer-3-card, #player-4-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 0.6s;
+}
+#dealer-4-card, #player-5-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 0.9s;
+}
+#dealer-5-card, #player-6-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 1.2s;
+}
+#dealer-6-card, #player-7-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 1.5s;
 }
