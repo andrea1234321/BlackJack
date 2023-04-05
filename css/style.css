@@ -188,3 +188,31 @@ div.chips> button:active, div.blackjack-chip> button:active{
   transform: scale(0.98);
   box-shadow: none;
 } 
+
+#player-first-card{
+  display: inline-block;
+  /* animation: slideInRight; */
+  animation-duration: 1s;
+  animation-delay: 0s;
+}
+
+#dealer-first-card{
+  display: inline-block;
+  /* animation: slideInRight; */
+  animation-duration: 1s;
+  animation-delay: 0.5s;
+}
+
+#player-second-card{
+  display: inline-block;
+  /* animation: slideInRight; */
+  animation-duration: 1s;
+  animation-delay: 1s;
+}
+
+#dealer-second-card{
+  display: inline-block;
+  /* animation: slideInRight; */
+  animation-duration: 1s;
+  animation-delay: 1.5s;
+}

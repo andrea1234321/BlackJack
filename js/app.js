@@ -185,8 +185,27 @@ function updatePlayingField(){
       dealersCardsOutline.setAttribute('class', `card large outline`)
       dealerCardsEl.appendChild(dealersCardsOutline)
     }
-  }else if (step==='deal' || step==='hit'){
+  }else if (step==='deal'){
     //dealer face down card
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
+    let dealerfirstCard= document.createElement('div')
+    dealerfirstCard.setAttribute('id', `dealer-first-card`)
+    dealerfirstCard.setAttribute('class', `card large back-vintage-vegas animate__animated animate__fadeInRightBig`)
+    dealerCardsEl.appendChild(dealerfirstCard)
+    let dealerCurrentCards= document.createElement('div')
+    dealerCurrentCards.setAttribute('id', `dealer-second-card`)
+    dealerCurrentCards.setAttribute('class', `card large ${dealerCards[1]} animate__animated animate__fadeInRightBig`)
+    dealerCardsEl.appendChild(dealerCurrentCards)
+    let playerFirstCard= document.createElement('div')
+    playerFirstCard.setAttribute('id', 'player-first-card')
+    playerFirstCard.setAttribute('class', `card large ${playerCards[0]} animate__animated animate__fadeInRightBig`)
+    playerCardsEl.appendChild(playerFirstCard)
+    let playerSecondCard= document.createElement('div')
+    playerSecondCard.setAttribute('id', 'player-second-card')
+    playerSecondCard.setAttribute('class', `card large ${playerCards[1]} animate__animated animate__fadeInRightBig`)
+    playerCardsEl.appendChild(playerSecondCard)
+  }else if (step=== 'hit'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
@@ -246,7 +265,6 @@ function dealBtnHandleClick(){
   dealPlayerFirstCards()
   dealDealerFirstCards()
   checkForBlackJack()
-  render()
 }
 
 function dealPlayerFirstCards(){
@@ -375,7 +393,7 @@ function checkForBlackJack(){
   } else if (playerCardCount===21 && dealerCardCount===21){
     step= 'blackjack push'
   }
- render()
+  render()
 }
 
 function checkDealerCards(){
@@ -384,7 +402,7 @@ function checkDealerCards(){
     dealDealerCards()
   }else if (dealerCardCount>21){
     step= 'player wins'
-  }else if (dealerCardCount>=17 && dealerCardCount<21){
+  }else if (dealerCardCount>=17 && dealerCardCount<=21){
     compareHands()
   }
 }

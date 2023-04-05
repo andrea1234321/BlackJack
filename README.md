@@ -15,7 +15,7 @@ I learned to play blackjack while I was a caregiver. The man I took care of love
 * HTML
 * Git
 
-## Next Steps
+## Next Steps(icebox items)
 * Add an "insurance" feature when the dealers initial card shows an Ace
 * Add a split feature that allows you to split your cards on initial deal if they are the same card/value
 * Add a split feature after the initial split that allows you to split your cards if the next card delt is also the same card/value
