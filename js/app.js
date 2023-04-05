@@ -72,6 +72,9 @@ function updateMessageBoard(){
     playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
   }else if (step==='stay' || step=== 'double'){
     cardCounter()
+  }else if (step=== 'no double'){
+    playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
+    playerMessageEl.innerText= `Sorry you don't have enough money to double your bet`
   }else if (step==='bust'){
     cardCounter()
     playerMessageEl.innerText= `Sorry you busted!`
@@ -311,12 +314,18 @@ function dealDealerCards(){
 }
 
 function doubleDown(){
-  step= 'double'
-  playerMoney-= bet
-  bet+= bet
-  dealPlayerCards()
-  checkForBust()
-  render()
+  if (playerMoney>=bet){
+    step= 'double'
+    playerMoney-= bet
+    bet+= bet
+    dealPlayerCards()
+    checkForBust()
+    checkDealerCards()
+    render()
+  }else{
+    step= 'no double'
+    updateMessageBoard()
+  }
 }
 
 function hitButton(){
