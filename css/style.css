@@ -177,4 +177,14 @@ div.chips> button:active, div.blackjack-chip> button:active{
   background-color: rgb(13, 116, 150);
   border-radius: 15px;
   border: 2px solid rgb(16, 27, 125);
+  margin-bottom: 40px;  
+  box-shadow: 1px 3px 5px rgb(13, 16, 99);
 }
+#reset-game-button:hover{
+  opacity: 0.8;
+  box-shadow: 1px 3px 5px rgb(13, 16, 99);
+}
+#reset-game-button:active{
+  transform: scale(0.98);
+  box-shadow: none;
+} 
