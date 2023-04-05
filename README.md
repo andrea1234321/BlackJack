@@ -1,4 +1,7 @@
 # BlackJack
+![GameBoard](./assets/blackjack_board.png)
+![GameBoardWhilePlaying](./assets/Gameboard_during.png)
+
 Click [here](https://andrea-blackjack.netlify.app) to play
 
 ## Motivation
@@ -14,6 +17,7 @@ I learned to play blackjack while I was a caregiver. The man I took care of love
 * CSS
 * HTML
 * Git
+* Animate.css
 
 ## Next Steps(icebox items)
 * Add an "insurance" feature when the dealers initial card shows an Ace
