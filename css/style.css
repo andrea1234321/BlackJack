@@ -12,8 +12,9 @@ h1{
   font-family: 'Bungee Outline', sans-serif;
   font-size: 50px;
   margin: 0;
+  background-color: rgba(172, 18, 15, 0.6);
   color: #7f5b28;
-  /* text-shadow:
+  text-shadow:
     0 0 7px #ffffff,
     0 0 10px #ffffff,
     0 0 21px #fffffe,
@@ -21,10 +22,10 @@ h1{
     0 0 82px rgb(199, 165, 11),
     0 0 92px rgb(199, 165, 11),
     0 0 102px rgb(199, 165, 11),
-    0 0 151px rgb(199, 165, 11); */
+    0 0 151px rgb(199, 165, 11);
   border: 1px solid;
   border-radius: 30px;
-  /* box-shadow:
+  box-shadow:
     0 0 7px #ffffff,
     0 0 10px #ffffff,
     0 0 21px #fffffe,
@@ -32,7 +33,7 @@ h1{
     0 0 82px rgb(199, 165, 11),
     0 0 92px rgb(199, 165, 11),
     0 0 102px rgb(199, 165, 11),
-    0 0 151px rgb(199, 165, 11); */
+    0 0 151px rgb(199, 165, 11);
   padding: 10px 70px;
 }
 .message-container{
@@ -57,8 +58,6 @@ h1{
   color: rgb(185, 157, 92);
   height: 100px;
   width: 150px;
-  border-top-left-radius: 40%;
-  border-bottom-right-radius: 60px;
   /* box-shadow:
     0 0 7px #ffffff,
     0 0 10px #ffffff,
