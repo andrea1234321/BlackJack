@@ -1,10 +1,10 @@
-![GameBoard](./images/game_board/BlackJack_gameboard.png)
+![GameBoard](./images/game_board/Blackjack_game.png)
 
 # BlackJack
 Click [here](https://andrea-blackjack.netlify.app) to play
 
 ## Rules
-To play just click on a chip to place your bet and follow the buttons accordingly!
+To play, just click on a chip to place your bet and follow the buttons accordingly!
 
 The card values are as follows: 
 * Ace= 1/11
@@ -17,11 +17,11 @@ If you don't get 21 or anything near it on your first draw, then you might want 
 I learned to play blackjack while I was a caregiver. The man I took care of loved to go to the casinos to play blackjack, but as he was quadriplegic he always needed someone to take him and play with/for him. He ended up teaching me how to play the game and the basic strategy behind betting and when to hit, stay, double, etc. I fell in love with the game too, so we often spent our time going to nearby casinos or going on casino cruises. As I have been learning to code, I wanted to build my own blackjack game, so that others too could find joy in playing. 
 
 ## Attributions 
-* Card Deck Library: [Github](https://github.com/ManliestBen/css-card-template.git)- Manliest Ben
+* Card Deck Library: [Github](https://github.com/ManliestBen/css-card-template.git)- ManliestBen
 * Animation Library: [Animate.css](https://animate.style/)
 * Bungee and Ubuntu font-style: [Google Fonts](https://fonts.google.com/)
 * Card Back Image: [Pinterest](https://www.pinterest.com/pin/673217844278686778/)
-* Favicon Icon [Flaticon](https://www.flaticon.com/free-icons/playing-card)
+* Favicon Icon: [Flaticon](https://www.flaticon.com/free-icons/playing-card)
 
 ## Technology Implemented
 * JavaScript
