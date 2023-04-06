@@ -1,5 +1,4 @@
-![GameBoard](./assets/blackjack_board.png)
-![GameBoardWhilePlaying](./assets/Gameboard_during.png)
+![GameBoard](./assets/BlackJack_gameboard.png)
 
 # BlackJack
 Click [here](https://andrea-blackjack.netlify.app) to play
