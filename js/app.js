@@ -165,7 +165,6 @@ function updateBtns(){
 
 function updatePlayingField(){
   if (step==='card outline' || step==='chip' | step==='reset' | step=== 'no money'){
-    //4 empty cards
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     for (let i=0; i<2; i++){
@@ -179,7 +178,6 @@ function updatePlayingField(){
       dealerCardsEl.appendChild(dealersCardsOutline)
     }
   }else if (step==='deal'){
-    //dealer face down card
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
