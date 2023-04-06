@@ -19,6 +19,7 @@ I learned to play blackjack while I was a caregiver. The man I took care of love
 ## Attributions 
 * Card Deck Library: [Github](https://github.com/ManliestBen/css-card-template.git)- Manliest Ben
 * Animation Library: [Animate.css](https://animate.style/)
+* Bungee and Ubuntu font-style: [Google Fonts](https://fonts.google.com/)
 * Card Back Image: [Pinterest](https://www.pinterest.com/pin/673217844278686778/)
 * Favicon Icon [Flaticon](https://www.flaticon.com/free-icons/playing-card)
 
