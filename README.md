@@ -3,11 +3,8 @@
 # BlackJack
 Click [here](https://andrea-blackjack.netlify.app) to play
 
-## To play
-Click on a chip to place your bet and follow the buttons accordingly!
-
 ## Rules
-Playing BlackJack is fairly simple, just place a bet and hope you get 21! 
+To play just click on a chip to place your bet and follow the buttons accordingly!
 
 The card values are as follows: 
 * Ace= 1/11
