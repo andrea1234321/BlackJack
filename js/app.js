@@ -115,57 +115,57 @@ function cardCounter(){
 // }
 
 function updateBtns(){
-  resetGameBtnEl.style.visibility= 'hidden'
-  dealBtnEl.style.visibility= 'hidden'
-  resetBetBtnEl.style.visibility= 'hidden'
-  doubleBtnEl.style.visibility= 'hidden'
-  hitBtnEl.style.visibility= 'hidden'
-  stayBtnEl.style.visibility= 'hidden'
-  discardBtnEl.style.visibility= 'hidden'
+  resetGameBtnEl.style.display= 'none'
+  dealBtnEl.style.display= 'none'
+  resetBetBtnEl.style.display= 'none'
+  doubleBtnEl.style.display= 'none'
+  hitBtnEl.style.display= 'none'
+  stayBtnEl.style.display= 'none'
+  discardBtnEl.style.display= 'none'
   chipsEls.forEach(function(chip){
-    chip.style.visibility= 'visible'
+    chip.style.display= 'initial'
     chip.disabled= false
   })
   blackjackChipEl.disabled= false
-  blackjackChipEl.style.visibility= 'visible'
+  blackjackChipEl.style.display= 'initial'
   if (step==='card outline' || step=== 'reset'){
-    dealBtnEl.style.visibility= 'hidden'
+    dealBtnEl.style.display= 'none'
   }else if (step==='chip'){
-    dealBtnEl.style.visibility= 'visible'
-    resetBetBtnEl.style.visibility= 'visible'
+    dealBtnEl.style.display= 'initial'
+    resetBetBtnEl.style.display= 'initial'
   }else if (step==='deal'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
-    doubleBtnEl.style.visibility= 'visible'
-    stayBtnEl.style.visibility= 'visible'
-    hitBtnEl.style.visibility= 'visible'
+    doubleBtnEl.style.display= 'initial'
+    stayBtnEl.style.display= 'initial'
+    hitBtnEl.style.display= 'initial'
   }else if (step==='hit'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
-    stayBtnEl.style.visibility= 'visible'
-    hitBtnEl.style.visibility= 'visible'
+    stayBtnEl.style.display= 'initial'
+    hitBtnEl.style.display= 'initial'
   }else if (step=== 'double'){
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
-    discardBtnEl.style.visibility= 'visible'
+    discardBtnEl.style.display= 'initial'
   }else if (step=== 'no money'){
     chipsEls.forEach(function(chip){
-      chip.style.visibility= 'hidden'
+      chip.style.display= 'initial'
     })
-    blackjackChipEl.style.visibility='hidden'
-    resetGameBtnEl.style.visibility= 'visible'
+    blackjackChipEl.style.display= 'initial'
+    resetGameBtnEl.style.display= 'initial'
   }else{
     chipsEls.forEach(function(chip){
       chip.disabled= true
     })
     blackjackChipEl.disabled= true
-    discardBtnEl.style.visibility= 'visible'
+    discardBtnEl.style.display= 'initial'
   }
 }
 
