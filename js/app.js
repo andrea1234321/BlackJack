@@ -17,8 +17,8 @@ const playerMoneyEl= document.getElementById('player-money')
 const currentBetEl= document.getElementById('current-bet')
 const dealBtnEl= document.getElementById('deal-button')
 const resetBetBtnEl= document.getElementById('reset-bet-button')
-const initialCardsEl= document.querySelectorAll('#initial-cards')
 const dealerCardsEl= document.querySelector('.dealer-card-container')
+const initialCardsEl= document.querySelectorAll('#initial-cards')
 const playerCardsEl= document.querySelector('.player-card-container')
 const doubleBtnEl= document.getElementById('double-button')
 const hitBtnEl= document.getElementById('hit-button')
@@ -80,13 +80,13 @@ function updateMessageBoard(){
     playerMessageEl.innerText= `Sorry you busted!`
   }else if (step=== 'player blackjack'){
     cardCounter()
-    playerMessageEl.innerText= `Congratulations you got blackjack, it pays 3/2`
+    playerMessageEl.innerText= `Congratulations you got BlackJack, it pays 3/2!`
   }else if (step==='dealer blackjack'){
     cardCounter()
-    playerMessageEl.innerText= `I'm sorry dealer got blackjack`
+    playerMessageEl.innerText= `I'm sorry dealer got BlackJack!`
   }else if (step=== 'blackjack push'){
     cardCounter()
-    playerMessageEl.innerText= `Yay you got blackjack, but unfortunately so did the dealer, you pushed`
+    playerMessageEl.innerText= `Yay you got BlackJack, but unfortunately so did the dealer, so you push`
   }else if (step=== 'player wins'){
     cardCounter()
     playerMessageEl.innerText= `Yay you win! You get 2x your bet!`
