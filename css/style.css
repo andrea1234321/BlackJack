@@ -15,25 +15,23 @@ h1{
   background-color: rgba(172, 18, 15, 0.6);
   color: #7f5b28;
   text-shadow:
-  0 0 7px #ffffff,
+  0 0 5px #ffffff,
   0 0 10px #ffffff,
-  0 0 21px #fffffe,
-  0 0 42px rgb(199, 165, 11),
-  0 0 82px rgb(199, 165, 11),
-  0 0 92px rgb(199, 165, 11),
-  0 0 102px rgb(199, 165, 11),
-  0 0 151px rgb(199, 165, 11);
+  0 0 20px #fffffe,
+  0 0 40px rgb(199, 165, 11),
+  0 0 80px rgb(199, 165, 11),
+  0 0 120px rgb(199, 165, 11),
+  0 0 140px rgb(199, 165, 11);
   border: 1px solid;
   border-radius: 30px;
   box-shadow:
-  0 0 7px #ffffff,
+  0 0 5px #ffffff,
   0 0 10px #ffffff,
-  0 0 21px #fffffe,
-  0 0 42px rgb(199, 165, 11),
-  0 0 82px rgb(199, 165, 11),
-  0 0 92px rgb(199, 165, 11),
-  0 0 102px rgb(199, 165, 11),
-  0 0 151px rgb(199, 165, 11);
+  0 0 20px #fffffe,
+  0 0 40px rgb(199, 165, 11),
+  0 0 80px rgb(199, 165, 11),
+  0 0 120px rgb(199, 165, 11),
+  0 0 140px rgb(199, 165, 11);
   padding: 10px 70px;
 }
 
@@ -148,28 +146,26 @@ div.chips> button:active, div.blackjack-chip> button:active{
   background-color: rgb(185, 157, 92);
   color: rgb(82, 53, 3);
   box-shadow:
-  0 0 7px #ffffff,
+  0 0 5px #ffffff,
   0 0 10px #ffffff,
-  0 0 21px #fffffe,
-  0 0 42px rgb(199, 165, 11),
-  0 0 82px rgb(199, 165, 11),
-  0 0 92px rgb(199, 165, 11),
-  0 0 102px rgb(199, 165, 11),
-  0 0 151px rgb(199, 165, 11);
+  0 0 20px #fffffe,
+  0 0 40px rgb(199, 165, 11),
+  0 0 80px rgb(199, 165, 11),
+  0 0 120px rgb(199, 165, 11),
+  0 0 140px rgb(199, 165, 11);
 }
 
 .buttons> button:hover{
   opacity: 0.8;
   box-shadow: 1px 3px 5px black;
   box-shadow:
-  0 0 7px #ffffff,
+  0 0 5px #ffffff,
   0 0 10px #ffffff,
-  0 0 21px #fffffe,
-  0 0 42px rgb(199, 165, 11),
-  0 0 82px rgb(199, 165, 11),
-  0 0 92px rgb(199, 165, 11),
-  0 0 102px rgb(199, 165, 11),
-  0 0 151px rgb(199, 165, 11);
+  0 0 20px #fffffe,
+  0 0 40px rgb(199, 165, 11),
+  0 0 80px rgb(199, 165, 11),
+  0 0 120px rgb(199, 165, 11),
+  0 0 140px rgb(199, 165, 11);
 }
 .buttons> button:active{
   transform: scale(0.98);
