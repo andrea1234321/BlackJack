@@ -146,13 +146,30 @@ div.chips> button:active, div.blackjack-chip> button:active{
   border: 2px solid rgb(94, 63, 5);
   margin: 10px;
   background-color: rgb(185, 157, 92);
-  box-shadow: 1px 3px 5px rgb(99, 67, 13);
   color: rgb(82, 53, 3);
+  box-shadow:
+  0 0 7px #ffffff,
+  0 0 10px #ffffff,
+  0 0 21px #fffffe,
+  0 0 42px rgb(199, 165, 11),
+  0 0 82px rgb(199, 165, 11),
+  0 0 92px rgb(199, 165, 11),
+  0 0 102px rgb(199, 165, 11),
+  0 0 151px rgb(199, 165, 11);
 }
 
 .buttons> button:hover{
   opacity: 0.8;
   box-shadow: 1px 3px 5px black;
+  box-shadow:
+  0 0 7px #ffffff,
+  0 0 10px #ffffff,
+  0 0 21px #fffffe,
+  0 0 42px rgb(199, 165, 11),
+  0 0 82px rgb(199, 165, 11),
+  0 0 92px rgb(199, 165, 11),
+  0 0 102px rgb(199, 165, 11),
+  0 0 151px rgb(199, 165, 11);
 }
 .buttons> button:active{
   transform: scale(0.98);
@@ -227,4 +244,14 @@ div.chips> button:active, div.blackjack-chip> button:active{
   display: inline-block;
   animation-duration: 0.5s;
   animation-delay: 1.4s;
+}
+#dealer-6-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 1.7s;
+}
+#dealer-7-card{
+  display: inline-block;
+  animation-duration: 0.5s;
+  animation-delay: 2s;
 }
