@@ -105,14 +105,7 @@ function cardCounter(){
   playerCardCounterEl.innerText= `Card total: ${playerCardCount}`
   dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
 }
-// function cardCounter(){
-//   playerCardCounterEl.innerText= ''
-//   dealerCardCounterEl.innerText= ''
-//   if (step!== 'card outline' || step!== 'chip' || step!== 'deal' || step!== 'hit'){
-//     dealerCardCounterEl.innerText= `Dealer card total: ${dealerCardCount}`
-//     playerCardCounterEl.innerText= `Player card total: ${playerCardCount}`
-//   }
-// }
+
 
 function updateBtns(){
   resetGameBtnEl.style.display= 'none'
@@ -225,6 +218,26 @@ function updatePlayingField(){
       playerHitCards.setAttribute('id', `player-${i}-card`)
       playerCardsEl.appendChild(playerHitCards)
     }
+  }else if(step=== 'player wins' || step=== 'push' || step=== 'dealer wins'){
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
+    let dealerfirstCard= document.createElement('div')
+    dealerfirstCard.setAttribute('class', `card large ${dealerCards[0]} animate__animated animate__flipInY`)
+    dealerCardsEl.appendChild(dealerfirstCard)
+    let dealerSecondCard= document.createElement('div')
+    dealerSecondCard.setAttribute('class', `card large ${dealerCards[1]}`)
+    dealerCardsEl.appendChild(dealerSecondCard)
+    for (let i=2; i<dealerCards.length; i++){
+      let dealerAllCards= document.createElement('div')
+      dealerAllCards.setAttribute('class', `card large ${dealerCards[i]} animate__animated animate__fadeInRightBig`)
+      dealerAllCards.setAttribute('id', `dealer-${i}-card`)
+      dealerCardsEl.appendChild(dealerAllCards)
+    }
+    playerCards.forEach(function (card){
+      let playersCards= document.createElement('div')
+      playersCards.setAttribute('class', `card large ${card}`)
+      playerCardsEl.appendChild(playersCards)
+    })
   }else{
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
