@@ -219,7 +219,7 @@ function updatePlayingField(){
         playerCardsEl.appendChild(playerHitCards)
       }
     }
-  }else if(step=== 'player wins' || step=== 'push' || step=== 'dealer wins'){
+  }else if(step=== 'player wins' || step=== 'push' || step=== 'dealer wins' || step=== 'bust'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
