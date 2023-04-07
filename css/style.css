@@ -8,6 +8,7 @@ body{
   justify-content: center;
   margin-top: 30px;
 }
+
 h1{
   font-family: 'Bungee Outline', sans-serif;
   font-size: 50px;
@@ -36,15 +37,17 @@ h1{
 
 .whole-container{
   display: flex;
-  margin-top: 60px;
-  padding-bottom: 0px;
+  justify-content: center;
+  margin-top: 50px;
 }
+
 .left-container{
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-left: 10%;
+  margin-right: 100px;
 }
+
 .money-container{
   display: flex;
   flex-direction: column;
@@ -54,37 +57,37 @@ h1{
   height: 120px;
 }
 #player-money{
-  margin: 0
+  margin: 0;
 }
 #deck{
   box-shadow: 1px 5px 20px rgb(108, 101, 90);
 }
-.delt-cards{
+.right-container{
   display: flex;
   flex-direction: column;
-  width: 100%;
-  color: rgb(185, 157, 92);
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-.delt-cards>div, .delt-cards>p{
-  margin-left: 15%;
-}
-
-.delt-cards>p{
-  margin-left: 20%;
-}
-.player-card-container{
   margin-top: 10px;
+  color: rgb(185, 157, 92);
+}
+.dealer-card-container>div, .player-card-container>div{
+  margin-bottom: 10px;
+}
+#dealer-card-counter, #player-card-counter{
+  margin:0;
+}
+.card-counter{
+  display: flex;
+  justify-content: center;
+  height: 23px;
+  margin-bottom: 15px;
 }
 .messages{
   display: flex;
   justify-content: center;
   text-align: center;
   color: rgb(185, 157, 92);
-  margin-top: 40px;
   font-size: 20px;
   height: 20px;
+  width: 200px;
   padding: 0;
 }
 .all-chips{
@@ -92,7 +95,7 @@ h1{
   justify-content: center;
 }
 .chips, .blackjack-chip{
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 div.chips> button, div.blackjack-chip> button{
@@ -133,7 +136,6 @@ div.chips> button:active, div.blackjack-chip> button:active{
   transform: scale(0.98);
   box-shadow: none;
 }
-
 .buttons{
   display: flex;
   justify-content: center;
@@ -178,7 +180,6 @@ div.chips> button:active, div.blackjack-chip> button:active{
   animation-duration: 0.5s;
   animation-delay: 0s;
 }
-
 #dealer-first-card{
   display: inline-block;
   animation-duration: 0.5s;
@@ -231,4 +232,42 @@ div.chips> button:active, div.blackjack-chip> button:active{
   display: inline-block;
   animation-duration: 0.5s;
   animation-delay: 2s;
+}
+
+@media screen and (max-width: 544px) {
+  h1{
+    font-size: 40px;
+  }
+  .whole-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+  }
+  .left-container{
+    flex-direction: row;
+    margin-right: 0;
+    justify-content: center;
+  }
+  .money-container{
+    justify-content: center;
+    margin-top: -50px;
+  }
+  .messages{
+    margin-top: -150px;
+  }
+  .dealer-card-container{
+    margin-top: -50px;
+  }
+  div.chips> button, div.blackjack-chip> button{
+    height: 60px;
+    width: 60px;
+    font-size: 15px;
+  }
+  .buttons> button, #reset-game-button{
+    font-size: 15px;
+    padding: 7px;
+    border-radius: 9px;
+    margin-top: -10px;
+  }
 }
