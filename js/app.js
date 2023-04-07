@@ -210,14 +210,41 @@ function updatePlayingField(){
         let playersInitialCards= document.createElement('div')
         playersInitialCards.setAttribute('class', `card large ${playerCards[i]}`)
         playerCardsEl.appendChild(playersInitialCards)
-      }else if (i===playerCards.length-1){
+      }else if (i===(playerCards.length-1)){
         let playerHitCards= document.createElement('div')
         playerHitCards.setAttribute('class', `card large ${playerCards[i]} animate__animated animate__fadeInRightBig`)
         playerHitCards.setAttribute('id', `player-card`)
         playerCardsEl.appendChild(playerHitCards)
       }
     }
-  }else if(step=== 'player wins' || step=== 'push' || step=== 'dealer wins' || step=== 'bust'){
+  }else if (step=== 'bust'){
+    playerCardsEl.replaceChildren()
+    dealerCardsEl.replaceChildren()
+    let dealerfirstCard= document.createElement('div')
+    dealerfirstCard.setAttribute('class', `card large ${dealerCards[0]} animate__animated animate__flipInY`)
+    dealerCardsEl.appendChild(dealerfirstCard)
+    let dealerSecondCard= document.createElement('div')
+    dealerSecondCard.setAttribute('class', `card large ${dealerCards[1]}`)
+    dealerCardsEl.appendChild(dealerSecondCard)
+    for (let i=2; i<dealerCards.length; i++){
+      let dealerAllCards= document.createElement('div')
+      dealerAllCards.setAttribute('class', `card large ${dealerCards[i]} animate__animated animate__fadeInRightBig`)
+      dealerAllCards.setAttribute('id', `dealer-${i}-card`)
+      dealerCardsEl.appendChild(dealerAllCards)
+    }
+    for (let i=0; i<playerCards.length; i++){
+      if (i>=0 && i<(playerCards.length-1)){
+        let playersInitialCards= document.createElement('div')
+        playersInitialCards.setAttribute('class', `card large ${playerCards[i]}`)
+        playerCardsEl.appendChild(playersInitialCards)
+      }else if (i===(playerCards.length-1)){
+        let playerHitCards= document.createElement('div')
+        playerHitCards.setAttribute('class', `card large ${playerCards[i]} animate__animated animate__fadeInRightBig`)
+        playerHitCards.setAttribute('id', `player-card`)
+        playerCardsEl.appendChild(playerHitCards)
+      }
+    }
+  }else if(step=== 'player wins' || step=== 'push' || step=== 'dealer wins'){
     playerCardsEl.replaceChildren()
     dealerCardsEl.replaceChildren()
     let dealerfirstCard= document.createElement('div')
