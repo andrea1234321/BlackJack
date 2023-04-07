@@ -84,10 +84,11 @@ h1{
   display: flex;
   justify-content: center;
   text-align: center;
+  margin-top: -40px;
   color: rgb(185, 157, 92);
   font-size: 20px;
   height: 20px;
-  width: 200px;
+  width: 300px;
   padding: 0;
 }
 .all-chips{
@@ -257,7 +258,6 @@ div.chips> button:active, div.blackjack-chip> button:active{
     margin-top: -50px;
   }
 }
-
 
 @media screen and (max-width: 544px) {
   h1{
