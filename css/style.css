@@ -234,6 +234,31 @@ div.chips> button:active, div.blackjack-chip> button:active{
   animation-delay: 2s;
 }
 
+@media screen and (max-width: 657px) {
+  .whole-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  .left-container{
+    flex-direction: row;
+    margin-right: 0;
+    justify-content: center;
+  }
+  .money-container{
+    justify-content: center;
+    margin-top: -50px;
+  }
+  .messages{
+    margin-top: -150px;
+  }
+  .dealer-card-container{
+    margin-top: -50px;
+  }
+}
+
+
 @media screen and (max-width: 544px) {
   h1{
     font-size: 40px;
