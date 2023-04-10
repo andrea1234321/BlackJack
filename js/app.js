@@ -97,7 +97,7 @@ function updateMessageBoard(){
     cardCounter()
     playerMessageEl.innerText= `Sorry dealer wins this round`
   }else if (step==='no money'){
-    playerMessageEl.innerText= `It looks like you have ran out of money! If you wanna keep playing just go to the ATM and cash out some more money!`
+    playerMessageEl.innerText= `It looks like you have run out of money! If you wanna keep playing just go to the ATM and withdraw some money!`
   }
 }
 
