@@ -43,7 +43,7 @@ doubleBtnEl.addEventListener('click', doubleDown)
 hitBtnEl.addEventListener('click', hitButton)
 stayBtnEl.addEventListener('click', stayButton)
 discardBtnEl.addEventListener('click', discardBtnHandleClick)
-resetGameBtnEl.addEventListener('click', resetGame)
+resetGameBtnEl.addEventListener('click', init)
 
 
 //functions----------------------------------------------------------
@@ -97,7 +97,7 @@ function updateMessageBoard(){
     cardCounter()
     playerMessageEl.innerText= `Sorry dealer wins this round`
   }else if (step==='no money'){
-    playerMessageEl.innerText= `It looks like you have run out of money! If you wanna keep playing just go to the ATM and withdraw some money!`
+    playerMessageEl.innerText= `It looks like you ran out of money! If you wanna keep playing just go to the ATM and withdraw some more!`
   }
 }
 
@@ -519,6 +519,3 @@ function discardBtnHandleClick(){
   render()
 }
 
-function resetGame(){
-  init()
-}
